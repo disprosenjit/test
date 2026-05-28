@@ -13,6 +13,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
+    @stack('head')
 </head>
 <body class="bg-slate-50 font-sans antialiased">
     <div class="min-h-screen flex">

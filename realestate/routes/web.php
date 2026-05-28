@@ -7,12 +7,17 @@ use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GeocodingController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Admin\ContactInquiryController;
 use App\Http\Controllers\Admin\SpecialRequestController as AdminSpecialRequestController;
 use App\Http\Controllers\Admin\InvestmentInquiryController;
 use Illuminate\Support\Facades\Route;
+
+// Geocoding proxy (server-side, avoids CORS)
+Route::get('/geocoding/reverse', [GeocodingController::class, 'reverse'])->name('geocoding.reverse');
+Route::get('/geocoding/search',  [GeocodingController::class, 'search'])->name('geocoding.search');
 
 // Frontend Routes
 Route::get('/', [PageController::class, 'home'])->name('home');

@@ -122,24 +122,43 @@
                         @enderror
                     </div>
 
-                    <div>
-                        <label for="latitude" class="block text-sm font-medium text-slate-700 mb-1">Latitude <span class="text-slate-400 font-normal">(optional)</span></label>
-                        <input type="number" name="latitude" id="latitude" value="{{ old('latitude') }}" step="any" min="-90" max="90"
-                               class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                               placeholder="e.g. 34.0522">
-                        @error('latitude')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">
+                            Pin Location on Map
+                            <span class="text-slate-400 font-normal ml-1">— click the map or use "Find on Map"</span>
+                        </label>
+                        <div class="relative">
+                            <div id="location-map"
+                                 data-lat="{{ old('latitude') }}"
+                                 data-lng="{{ old('longitude') }}"
+                                 style="height:350px; border-radius:0.75rem; border:1px solid #e2e8f0; z-index:0;"></div>
+                            <div class="absolute bottom-3 left-3 z-10">
+                                <button type="button" id="geocode-btn"
+                                        class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 shadow-md hover:bg-slate-50 transition-colors">
+                                    <i class="fas fa-search-location text-blue-600"></i>Find on Map
+                                </button>
+                            </div>
+                        </div>
+                        <p class="mt-1.5 text-xs text-slate-500">Click anywhere on the map to place a pin, or click <strong>Find on Map</strong> to geocode from the address fields. The marker is draggable.</p>
                     </div>
 
-                    <div>
-                        <label for="longitude" class="block text-sm font-medium text-slate-700 mb-1">Longitude <span class="text-slate-400 font-normal">(optional)</span></label>
-                        <input type="number" name="longitude" id="longitude" value="{{ old('longitude') }}" step="any" min="-180" max="180"
-                               class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                               placeholder="e.g. -118.2437">
-                        @error('longitude')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                    {{-- Hidden coords submitted with form --}}
+                    <input type="hidden" name="latitude"  id="latitude"  value="{{ old('latitude') }}">
+                    <input type="hidden" name="longitude" id="longitude" value="{{ old('longitude') }}">
+
+                    {{-- Coordinate readout --}}
+                    <div class="md:col-span-2 flex items-center gap-4">
+                        <div class="flex items-center gap-2 text-sm text-slate-600">
+                            <i class="fas fa-map-pin text-blue-500"></i>
+                            <span>Coordinates:</span>
+                            <code id="lat-display" class="text-slate-500">{{ old('latitude') ?: '—' }}</code>
+                            <span class="text-slate-400">/</span>
+                            <code id="lng-display" class="text-slate-500">{{ old('longitude') ?: '—' }}</code>
+                        </div>
+                        <button type="button" id="clear-marker-btn"
+                                class="text-xs text-red-500 hover:text-red-700 {{ old('latitude') ? '' : 'hidden' }}">
+                            <i class="fas fa-times mr-1"></i>Clear pin
+                        </button>
                     </div>
                 </div>
             </div>
@@ -248,3 +267,127 @@
         </div>
     </form>
 @endsection
+
+@push('head')
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+@endpush
+
+@push('scripts')
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var mapEl    = document.getElementById('location-map');
+    var latInput = document.getElementById('latitude');
+    var lngInput = document.getElementById('longitude');
+    var latDisp  = document.getElementById('lat-display');
+    var lngDisp  = document.getElementById('lng-display');
+    var clearBtn = document.getElementById('clear-marker-btn');
+    var geoBtn   = document.getElementById('geocode-btn');
+
+    var initLat  = parseFloat(mapEl.dataset.lat) || null;
+    var initLng  = parseFloat(mapEl.dataset.lng) || null;
+    var hasInit  = initLat && initLng;
+
+    var map = L.map('location-map').setView(
+        hasInit ? [initLat, initLng] : [20, 0],
+        hasInit ? 14 : 2
+    );
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+    }).addTo(map);
+
+    var marker = null;
+
+    function setCoords(lat, lng) {
+        latInput.value      = lat.toFixed(7);
+        lngInput.value      = lng.toFixed(7);
+        latDisp.textContent = lat.toFixed(6);
+        lngDisp.textContent = lng.toFixed(6);
+        clearBtn.classList.remove('hidden');
+    }
+
+    function reverseGeocode(lat, lng) {
+        fetch('{{ route('geocoding.reverse') }}?lat=' + lat + '&lng=' + lng)
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            if (data.error) return;
+            var f = {
+                country:  document.getElementById('country'),
+                state:    document.getElementById('state'),
+                city:     document.getElementById('city'),
+                location: document.getElementById('location'),
+                address:  document.getElementById('address'),
+            };
+            if (f.country)  f.country.value  = data.country        || '';
+            if (f.state)    f.state.value    = data.state          || '';
+            if (f.city)     f.city.value     = data.city           || '';
+            if (f.location) f.location.value = data.location_label || '';
+            if (f.address)  f.address.value  = data.road           || '';
+        })
+        .catch(function () { /* best-effort — silently ignore */ });
+    }
+
+    function placeMarker(lat, lng, doReverse) {
+        if (marker) {
+            marker.setLatLng([lat, lng]);
+        } else {
+            marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+            marker.on('dragend', function (e) {
+                var p = e.target.getLatLng();
+                setCoords(p.lat, p.lng);
+                reverseGeocode(p.lat, p.lng);
+            });
+        }
+        setCoords(lat, lng);
+        if (doReverse) reverseGeocode(lat, lng);
+    }
+
+    function clearMarker() {
+        if (marker) { map.removeLayer(marker); marker = null; }
+        latInput.value      = '';
+        lngInput.value      = '';
+        latDisp.textContent = '—';
+        lngDisp.textContent = '—';
+        clearBtn.classList.add('hidden');
+    }
+
+    if (hasInit) { placeMarker(initLat, initLng, false); }
+
+    map.on('click', function (e) { placeMarker(e.latlng.lat, e.latlng.lng, true); });
+
+    clearBtn.addEventListener('click', clearMarker);
+
+    geoBtn.addEventListener('click', function () {
+        var parts = [
+            (document.getElementById('address') || {}).value,
+            (document.getElementById('city')    || {}).value,
+            (document.getElementById('state')   || {}).value,
+            (document.getElementById('country') || {}).value,
+        ].filter(Boolean);
+
+        if (!parts.length) { alert('Please fill in at least one address field first.'); return; }
+
+        geoBtn.disabled = true;
+        geoBtn.innerHTML = '<i class="fas fa-spinner fa-spin text-blue-600"></i> Searching…';
+
+        fetch('{{ route('geocoding.search') }}?q=' + encodeURIComponent(parts.join(', ')))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            if (data.lat && data.lng) {
+                placeMarker(data.lat, data.lng, false);
+                map.setView([data.lat, data.lng], 15);
+            } else {
+                alert('Location not found. Try a more specific address.');
+            }
+        })
+        .catch(function () { alert('Geocoding request failed. Check your connection.'); })
+        .finally(function () {
+            geoBtn.disabled = false;
+            geoBtn.innerHTML = '<i class="fas fa-search-location text-blue-600"></i>Find on Map';
+        });
+    });
+});
+</script>
+@endpush
