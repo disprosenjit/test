@@ -8,9 +8,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav aria-label="Breadcrumb">
                 <ol class="flex items-center space-x-2 text-sm">
-                    <li><a href="{{ url('/') }}" class="text-slate-500 hover:text-slate-900 transition-colors">Home</a></li>
+                    <li><a href="{{ url('/') }}" class="text-slate-500 hover:text-slate-900 transition-colors">{{ __('Home') }}</a></li>
                     <li><span class="text-slate-300">/</span></li>
-                    <li><a href="{{ route('properties.index') }}" class="text-slate-500 hover:text-slate-900 transition-colors">Properties</a></li>
+                    <li><a href="{{ route('properties.index') }}" class="text-slate-500 hover:text-slate-900 transition-colors">{{ __('Properties') }}</a></li>
                     <li><span class="text-slate-300">/</span></li>
                     <li><span class="text-slate-900 font-medium">{{ $property->title }}</span></li>
                 </ol>
@@ -49,7 +49,7 @@
                                      class="w-full h-[28rem] object-cover transition-transform duration-300 group-hover:scale-[1.02]">
                                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                                     <span class="opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 text-white text-sm font-medium px-4 py-2 rounded-lg backdrop-blur-sm">
-                                        <i class="fas fa-expand mr-2"></i>View Slideshow
+                                        <i class="fas fa-expand mr-2"></i>{{ __('View Slideshow') }}
                                     </span>
                                 </div>
                             </div>
@@ -126,13 +126,13 @@
                     <div class="mb-6">
                         <div class="flex items-center space-x-3 mb-2">
                             @if($property->is_featured)
-                                <span class="bg-blue-600 text-white text-xs font-semibold px-2.5 py-1 rounded-lg">Featured</span>
+                                <span class="bg-blue-600 text-white text-xs font-semibold px-2.5 py-1 rounded-lg">{{ __('Featured') }}</span>
                             @endif
-                            <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-lg capitalize">{{ $property->type }}</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-lg capitalize">{{ __(ucfirst($property->type)) }}</span>
                             @if($property->is_available)
-                                <span class="bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-lg">Available</span>
+                                <span class="bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-lg">{{ __('Available') }}</span>
                             @else
-                                <span class="bg-red-100 text-red-700 text-xs font-semibold px-2.5 py-1 rounded-lg">Unavailable</span>
+                                <span class="bg-red-100 text-red-700 text-xs font-semibold px-2.5 py-1 rounded-lg">{{ __('Unavailable') }}</span>
                             @endif
                         </div>
                         <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 font-[Inter] mb-3">{{ $property->title }}</h1>
@@ -144,7 +144,7 @@
 
                     <!-- Description -->
                     <div class="mb-10">
-                        <h2 class="text-xl font-semibold text-slate-900 mb-4">Description</h2>
+                        <h2 class="text-xl font-semibold text-slate-900 mb-4">{{ __('Description') }}</h2>
                         <div class="text-slate-600 leading-relaxed space-y-4">
                             <p>{{ $property->description }}</p>
                         </div>
@@ -152,27 +152,27 @@
 
                     <!-- Features Grid -->
                     <div>
-                        <h2 class="text-xl font-semibold text-slate-900 mb-6">Property Features</h2>
+                        <h2 class="text-xl font-semibold text-slate-900 mb-6">{{ __('Property Features') }}</h2>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                             <div class="bg-slate-50 rounded-xl p-5 text-center border border-slate-200">
                                 <i class="fas fa-bed text-blue-600 text-2xl mb-3"></i>
                                 <p class="text-2xl font-bold text-slate-900">{{ $property->bedrooms }}</p>
-                                <p class="text-sm text-slate-500 mt-1">Bedrooms</p>
+                                <p class="text-sm text-slate-500 mt-1">{{ __('Bedrooms') }}</p>
                             </div>
                             <div class="bg-slate-50 rounded-xl p-5 text-center border border-slate-200">
                                 <i class="fas fa-bath text-blue-600 text-2xl mb-3"></i>
                                 <p class="text-2xl font-bold text-slate-900">{{ $property->bathrooms }}</p>
-                                <p class="text-sm text-slate-500 mt-1">Bathrooms</p>
+                                <p class="text-sm text-slate-500 mt-1">{{ __('Bathrooms') }}</p>
                             </div>
                             <div class="bg-slate-50 rounded-xl p-5 text-center border border-slate-200">
                                 <i class="fas fa-ruler-combined text-blue-600 text-2xl mb-3"></i>
                                 <p class="text-2xl font-bold text-slate-900">{{ number_format($property->area) }}</p>
-                                <p class="text-sm text-slate-500 mt-1">Sq Ft</p>
+                                <p class="text-sm text-slate-500 mt-1">{{ __('Sq Ft') }}</p>
                             </div>
                             <div class="bg-slate-50 rounded-xl p-5 text-center border border-slate-200">
                                 <i class="fas fa-car text-blue-600 text-2xl mb-3"></i>
                                 <p class="text-2xl font-bold text-slate-900">{{ $property->parking_spaces }}</p>
-                                <p class="text-sm text-slate-500 mt-1">Parking</p>
+                                <p class="text-sm text-slate-500 mt-1">{{ __('Parking') }}</p>
                             </div>
                         </div>
                     </div>
@@ -184,38 +184,38 @@
                         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
                             <!-- Price -->
                             <div class="mb-6 pb-6 border-b border-slate-200">
-                                <p class="text-sm text-slate-500 mb-1">Price</p>
+                                <p class="text-sm text-slate-500 mb-1">{{ __('Price') }}</p>
                                 <p class="text-3xl font-bold text-blue-600">${{ number_format($property->price, 2) }}</p>
                             </div>
 
                             <!-- Property Details Table -->
                             <div class="mb-6 pb-6 border-b border-slate-200">
-                                <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-4">Property Details</h3>
+                                <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-4">{{ __('Property Details') }}</h3>
                                 <table class="w-full">
                                     <tbody class="text-sm">
                                         <tr class="border-b border-slate-100">
-                                            <td class="py-2.5 text-slate-500">Type</td>
-                                            <td class="py-2.5 text-slate-900 font-medium text-right capitalize">{{ $property->type }}</td>
+                                            <td class="py-2.5 text-slate-500">{{ __('Type') }}</td>
+                                            <td class="py-2.5 text-slate-900 font-medium text-right rtl-text-right capitalize">{{ __(ucfirst($property->type)) }}</td>
                                         </tr>
                                         <tr class="border-b border-slate-100">
-                                            <td class="py-2.5 text-slate-500">Location</td>
-                                            <td class="py-2.5 text-slate-900 font-medium text-right">{{ $property->location }}</td>
+                                            <td class="py-2.5 text-slate-500">{{ __('Location') }}</td>
+                                            <td class="py-2.5 text-slate-900 font-medium text-right rtl-text-right">{{ $property->location }}</td>
                                         </tr>
                                         <tr class="border-b border-slate-100">
-                                            <td class="py-2.5 text-slate-500">Area</td>
-                                            <td class="py-2.5 text-slate-900 font-medium text-right">{{ number_format($property->area) }} sqft</td>
+                                            <td class="py-2.5 text-slate-500">{{ __('Area') }}</td>
+                                            <td class="py-2.5 text-slate-900 font-medium text-right rtl-text-right">{{ number_format($property->area) }} {{ __('sqft') }}</td>
                                         </tr>
                                         <tr class="border-b border-slate-100">
-                                            <td class="py-2.5 text-slate-500">Bedrooms</td>
-                                            <td class="py-2.5 text-slate-900 font-medium text-right">{{ $property->bedrooms }}</td>
+                                            <td class="py-2.5 text-slate-500">{{ __('Bedrooms') }}</td>
+                                            <td class="py-2.5 text-slate-900 font-medium text-right rtl-text-right">{{ $property->bedrooms }}</td>
                                         </tr>
                                         <tr class="border-b border-slate-100">
-                                            <td class="py-2.5 text-slate-500">Bathrooms</td>
-                                            <td class="py-2.5 text-slate-900 font-medium text-right">{{ $property->bathrooms }}</td>
+                                            <td class="py-2.5 text-slate-500">{{ __('Bathrooms') }}</td>
+                                            <td class="py-2.5 text-slate-900 font-medium text-right rtl-text-right">{{ $property->bathrooms }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-2.5 text-slate-500">Parking</td>
-                                            <td class="py-2.5 text-slate-900 font-medium text-right">{{ $property->parking_spaces }}</td>
+                                            <td class="py-2.5 text-slate-500">{{ __('Parking') }}</td>
+                                            <td class="py-2.5 text-slate-900 font-medium text-right rtl-text-right">{{ $property->parking_spaces }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -224,7 +224,7 @@
                             <!-- Agent Info -->
                             @if($property->agent_name)
                                 <div class="mb-6 pb-6 border-b border-slate-200">
-                                    <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-4">Listed By</h3>
+                                    <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-4">{{ __('Listed By') }}</h3>
                                     <div class="flex items-center space-x-3">
                                         <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                                             <i class="fas fa-user text-blue-600"></i>
@@ -242,10 +242,10 @@
                             <!-- Action Buttons -->
                             <div class="space-y-3">
                                 <a href="{{ route('contact.create') }}" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                    <i class="fas fa-envelope mr-2"></i>Contact About Property
+                                    <i class="fas fa-envelope mr-2"></i>{{ __('Contact About Property') }}
                                 </a>
                                 <a href="{{ route('properties.index') }}" class="block text-center bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3 px-6 rounded-lg transition-colors">
-                                    <i class="fas fa-arrow-left mr-2"></i>Back to Properties
+                                    <i class="fas fa-arrow-left mr-2"></i>{{ __('Back to Properties') }}
                                 </a>
                             </div>
                         </div>

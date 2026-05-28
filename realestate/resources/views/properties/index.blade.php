@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Properties')
+@section('title', __('Properties'))
 
 @section('content')
     <!-- Page Header -->
     <section class="bg-slate-900 py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl sm:text-4xl font-bold text-white font-[Inter]">Our Properties</h1>
+            <h1 class="text-3xl sm:text-4xl font-bold text-white font-[Inter]">{{ __('Our Properties') }}</h1>
             <nav class="mt-4" aria-label="Breadcrumb">
                 <ol class="flex items-center space-x-2 text-sm">
-                    <li><a href="{{ url('/') }}" class="text-slate-300 hover:text-white transition-colors">Home</a></li>
+                    <li><a href="{{ url('/') }}" class="text-slate-300 hover:text-white transition-colors">{{ __('Home') }}</a></li>
                     <li><span class="text-slate-500">/</span></li>
-                    <li><span class="text-blue-400">Properties</span></li>
+                    <li><span class="text-blue-400">{{ __('Properties') }}</span></li>
                 </ol>
             </nav>
         </div>
@@ -24,37 +24,37 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
                     <!-- Type Select -->
                     <div>
-                        <label for="type" class="block text-sm font-medium text-slate-700 mb-1">Property Type</label>
+                        <label for="type" class="block text-sm font-medium text-slate-700 mb-1">{{ __('Property Type') }}</label>
                         <select id="type" name="type" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
-                            <option value="">All Types</option>
-                            <option value="residential" {{ old('type') == 'residential' ? 'selected' : '' }}>Residential</option>
-                            <option value="commercial" {{ old('type') == 'commercial' ? 'selected' : '' }}>Commercial</option>
-                            <option value="land" {{ old('type') == 'land' ? 'selected' : '' }}>Land</option>
+                            <option value="">{{ __('All Types') }}</option>
+                            <option value="residential" {{ old('type') == 'residential' ? 'selected' : '' }}>{{ __('Residential') }}</option>
+                            <option value="commercial" {{ old('type') == 'commercial' ? 'selected' : '' }}>{{ __('Commercial') }}</option>
+                            <option value="land" {{ old('type') == 'land' ? 'selected' : '' }}>{{ __('Land') }}</option>
                         </select>
                     </div>
 
                     <!-- Location Input -->
                     <div>
-                        <label for="location" class="block text-sm font-medium text-slate-700 mb-1">Location</label>
-                        <input type="text" id="location" name="location" value="{{ old('location') }}" placeholder="Enter location" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                        <label for="location" class="block text-sm font-medium text-slate-700 mb-1">{{ __('Location') }}</label>
+                        <input type="text" id="location" name="location" value="{{ old('location') }}" placeholder="{{ __('Enter location') }}" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
                     </div>
 
                     <!-- Min Price -->
                     <div>
-                        <label for="min_price" class="block text-sm font-medium text-slate-700 mb-1">Min Price</label>
-                        <input type="number" id="min_price" name="min_price" value="{{ old('min_price') }}" placeholder="Min" min="0" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                        <label for="min_price" class="block text-sm font-medium text-slate-700 mb-1">{{ __('Min Price') }}</label>
+                        <input type="number" id="min_price" name="min_price" value="{{ old('min_price') }}" placeholder="{{ __('Min') }}" min="0" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
                     </div>
 
                     <!-- Max Price -->
                     <div>
-                        <label for="max_price" class="block text-sm font-medium text-slate-700 mb-1">Max Price</label>
-                        <input type="number" id="max_price" name="max_price" value="{{ old('max_price') }}" placeholder="Max" min="0" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                        <label for="max_price" class="block text-sm font-medium text-slate-700 mb-1">{{ __('Max Price') }}</label>
+                        <input type="number" id="max_price" name="max_price" value="{{ old('max_price') }}" placeholder="{{ __('Max') }}" min="0" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
                     </div>
 
                     <!-- Search Button -->
                     <div>
                         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-6 rounded-lg transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <i class="fas fa-search mr-2"></i>Search
+                            <i class="fas fa-search mr-2"></i>{{ __('Search') }}
                         </button>
                     </div>
                 </div>
@@ -86,9 +86,9 @@
                         <!-- Badges -->
                         <div class="absolute top-3 left-3 flex items-center space-x-2">
                             @if($property->is_featured)
-                                <span class="bg-blue-600 text-white text-xs font-semibold px-2.5 py-1 rounded-lg">Featured</span>
+                                <span class="bg-blue-600 text-white text-xs font-semibold px-2.5 py-1 rounded-lg">{{ __('Featured') }}</span>
                             @endif
-                            <span class="bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 rounded-lg capitalize">{{ $property->type }}</span>
+                            <span class="bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 rounded-lg capitalize">{{ __(ucfirst($property->type)) }}</span>
                         </div>
                     </div>
 
@@ -106,18 +106,18 @@
                         <!-- Stats Row -->
                         <div class="flex items-center justify-between text-slate-500 text-sm border-t border-slate-100 pt-4 mb-4">
                             <span class="flex items-center">
-                                <i class="fas fa-bed mr-1.5"></i>{{ $property->bedrooms }} Beds
+                                <i class="fas fa-bed mr-1.5"></i>{{ $property->bedrooms }} {{ __('Beds') }}
                             </span>
                             <span class="flex items-center">
-                                <i class="fas fa-bath mr-1.5"></i>{{ $property->bathrooms }} Baths
+                                <i class="fas fa-bath mr-1.5"></i>{{ $property->bathrooms }} {{ __('Baths') }}
                             </span>
                             <span class="flex items-center">
-                                <i class="fas fa-ruler-combined mr-1.5"></i>{{ number_format($property->area) }} sqft
+                                <i class="fas fa-ruler-combined mr-1.5"></i>{{ number_format($property->area) }} {{ __('sqft') }}
                             </span>
                         </div>
 
                         <a href="{{ route('properties.show', $property) }}" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition-colors">
-                            View Details
+                            {{ __('View Details') }}
                         </a>
                     </div>
                 </div>
@@ -128,8 +128,8 @@
             @empty
                 <div class="text-center py-16">
                     <i class="fas fa-building text-slate-300 text-6xl mb-4"></i>
-                    <h3 class="text-xl font-semibold text-slate-900 mb-2">No Properties Found</h3>
-                    <p class="text-slate-500">We couldn't find any properties matching your criteria. Try adjusting your filters.</p>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">{{ __('No Properties Found') }}</h3>
+                    <p class="text-slate-500">{{ __('We couldn\'t find any properties matching your criteria. Try adjusting your filters.') }}</p>
                 </div>
             @endforelse
 

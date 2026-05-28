@@ -11,7 +11,16 @@ use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Admin\ContactInquiryController;
 use App\Http\Controllers\Admin\SpecialRequestController as AdminSpecialRequestController;
 use App\Http\Controllers\Admin\InvestmentInquiryController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/locale/{locale}', function (Request $request, string $locale) {
+    abort_unless(array_key_exists($locale, config('app.supported_locales', [])), 404);
+
+    $request->session()->put('locale', $locale);
+
+    return redirect()->back();
+})->name('locale.switch');
 
 // Frontend Routes
 Route::get('/', [PageController::class, 'home'])->name('home');
