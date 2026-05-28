@@ -5,9 +5,9 @@
 @section('content')
 
     {{-- Hero Section --}}
-    <section class="bg-slate-900 min-h-[85vh] flex items-center relative overflow-hidden">
+    <section class="bg-slate-900 min-h-[70vh] flex items-center relative overflow-hidden">
         <div class="absolute inset-0 bg-slate-800/30"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10 w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 relative z-10 w-full">
             <div class="max-w-3xl">
                 <span class="inline-block px-4 py-1.5 bg-blue-600/10 border border-blue-500/20 text-blue-400 text-sm font-medium rounded-full mb-6">
                     Trusted by 850+ Happy Clients
@@ -18,7 +18,7 @@
                 <p class="text-lg sm:text-xl text-slate-300 leading-relaxed mb-10 max-w-2xl">
                     Discover exceptional properties tailored to your lifestyle. From luxury homes to smart investments, we make your real estate journey seamless and rewarding.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 mb-16">
+                <div class="flex flex-col sm:flex-row gap-4 mb-10">
                     <a href="{{ route('properties.index') }}"
                        class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors text-base">
                         Explore Properties
@@ -54,19 +54,19 @@
     </section>
 
     {{-- Search Section --}}
-    <section class="bg-white py-24">
+    <section class="bg-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Search Properties</h2>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">Search Properties</h2>
                 <p class="text-slate-600 text-lg max-w-2xl mx-auto">Find the perfect property by filtering through our extensive listings.</p>
             </div>
             <form action="{{ route('properties.filter') }}" method="GET"
-                  class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                    <div>
-                        <label for="type" class="block text-sm font-medium text-slate-700 mb-2">Property Type</label>
+                  class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                <div class="flex flex-nowrap items-end gap-2">
+                    <div class="flex-1 min-w-0">
+                        <label for="type" class="block text-xs font-medium text-slate-600 mb-1">Type</label>
                         <select name="type" id="type"
-                                class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none">
+                                class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 text-sm focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none">
                             <option value="">All Types</option>
                             <option value="house">House</option>
                             <option value="apartment">Apartment</option>
@@ -75,39 +75,38 @@
                             <option value="land">Land</option>
                         </select>
                     </div>
-                    <div>
-                        <label for="location" class="block text-sm font-medium text-slate-700 mb-2">Location</label>
+                    <div class="flex-[1.5] min-w-0">
+                        <label for="location" class="block text-xs font-medium text-slate-600 mb-1">Location</label>
                         <input type="text" name="location" id="location" placeholder="City or neighborhood"
-                               class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none">
+                               class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none">
                     </div>
-                    <div>
-                        <label for="min_price" class="block text-sm font-medium text-slate-700 mb-2">Min Price</label>
-                        <input type="number" name="min_price" id="min_price" placeholder="$0"
-                               class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none">
+                    <div class="flex-1 min-w-0">
+                        <label for="min_price" class="block text-xs font-medium text-slate-600 mb-1">Min Price</label>
+                        <input type="number" name="min_price" id="min_price" placeholder="Min"
+                               class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none">
                     </div>
-                    <div>
-                        <label for="max_price" class="block text-sm font-medium text-slate-700 mb-2">Max Price</label>
-                        <input type="number" name="max_price" id="max_price" placeholder="No limit"
-                               class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none">
+                    <div class="flex-1 min-w-0">
+                        <label for="max_price" class="block text-xs font-medium text-slate-600 mb-1">Max Price</label>
+                        <input type="number" name="max_price" id="max_price" placeholder="Max"
+                               class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none">
                     </div>
-                </div>
-                <div class="flex justify-center">
-                    <button type="submit"
-                            class="inline-flex items-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors">
-                        <i class="fa-solid fa-magnifying-glass mr-2"></i>
-                        Search Properties
-                    </button>
+                    <div class="flex-shrink-0">
+                        <button type="submit"
+                                class="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-sm whitespace-nowrap">
+                            <i class="fa-solid fa-magnifying-glass mr-2"></i>Search
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
     </section>
 
     {{-- Featured Properties --}}
-    <section class="bg-slate-50 py-24">
+    <section class="bg-slate-50 py-14">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <span class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-4">Featured</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Featured Properties</h2>
+            <div class="text-center mb-10">
+                <span class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-3">Featured</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">Featured Properties</h2>
                 <p class="text-slate-600 text-lg max-w-2xl mx-auto">Hand-picked properties that represent the best value and quality in the market.</p>
             </div>
 
@@ -172,11 +171,11 @@
     </section>
 
     {{-- Latest Properties --}}
-    <section class="bg-white py-24">
+    <section class="bg-white py-14">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <span class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-4">New Listings</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Latest Properties</h2>
+            <div class="text-center mb-10">
+                <span class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-3">New Listings</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">Latest Properties</h2>
                 <p class="text-slate-600 text-lg max-w-2xl mx-auto">Explore our newest additions to the market, freshly listed and waiting for you.</p>
             </div>
 
@@ -232,7 +231,7 @@
                 @endforelse
             </div>
 
-            <div class="text-center mt-12">
+            <div class="text-center mt-10 mb-6">
                 <a href="{{ route('properties.index') }}"
                    class="inline-flex items-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors">
                     View All Properties
@@ -243,23 +242,23 @@
     </section>
 
     {{-- Stats Bar --}}
-    <section class="bg-slate-900 py-16">
+    <section class="bg-slate-900 py-20 my-2">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                <div>
-                    <p class="text-3xl sm:text-4xl font-bold text-white mb-2">1,200+</p>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 text-center">
+                <div class="py-4">
+                    <p class="text-4xl sm:text-5xl font-bold text-white mb-3">1,200+</p>
                     <p class="text-slate-400 text-sm">Properties</p>
                 </div>
-                <div>
-                    <p class="text-3xl sm:text-4xl font-bold text-white mb-2">850+</p>
+                <div class="py-4">
+                    <p class="text-4xl sm:text-5xl font-bold text-white mb-3">850+</p>
                     <p class="text-slate-400 text-sm">Happy Clients</p>
                 </div>
-                <div>
-                    <p class="text-3xl sm:text-4xl font-bold text-white mb-2">95%</p>
+                <div class="py-4">
+                    <p class="text-4xl sm:text-5xl font-bold text-white mb-3">95%</p>
                     <p class="text-slate-400 text-sm">Satisfaction Rate</p>
                 </div>
-                <div>
-                    <p class="text-3xl sm:text-4xl font-bold text-white mb-2">24/7</p>
+                <div class="py-4">
+                    <p class="text-4xl sm:text-5xl font-bold text-white mb-3">24/7</p>
                     <p class="text-slate-400 text-sm">Support Available</p>
                 </div>
             </div>
@@ -267,7 +266,7 @@
     </section>
 
     {{-- Special Request CTA --}}
-    <section class="bg-white py-24">
+    <section class="bg-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="max-w-3xl mx-auto">
                 <i class="fa-solid fa-magnifying-glass-location text-blue-600 text-4xl mb-6"></i>
@@ -285,7 +284,7 @@
     </section>
 
     {{-- Investment CTA --}}
-    <section class="bg-blue-600 py-24">
+    <section class="bg-blue-600 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="max-w-3xl mx-auto">
                 <i class="fa-solid fa-chart-line text-white/80 text-4xl mb-6"></i>
@@ -303,9 +302,9 @@
     </section>
 
     {{-- Why Choose Us --}}
-    <section class="bg-slate-50 py-24">
+    <section class="bg-slate-50 py-14">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-10">
                 <span class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-4">Why Us</span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Why Choose Real Estate Pro</h2>
                 <p class="text-slate-600 text-lg max-w-2xl mx-auto">We stand apart with our commitment to excellence, transparency, and client satisfaction.</p>
@@ -359,9 +358,9 @@
     </section>
 
     {{-- Contact CTA --}}
-    <section class="bg-slate-900 py-24">
+    <section class="bg-slate-900 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
+            <div class="text-center mb-8">
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Get In Touch</h2>
                 <p class="text-slate-300 text-lg max-w-2xl mx-auto">Ready to find your perfect property? Reach out to us through any of these channels.</p>
             </div>

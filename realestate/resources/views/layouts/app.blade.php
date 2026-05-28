@@ -19,55 +19,61 @@
         body { font-family: 'Inter', sans-serif; }
         [x-cloak] { display: none !important; }
     </style>
+
+    @stack('head')
 </head>
 <body class="bg-white text-slate-900 antialiased">
 
     {{-- Navigation --}}
     <nav class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm" x-data="{ mobileMenuOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
+            <div class="flex items-center h-16 gap-6">
                 {{-- Logo --}}
-                <a href="{{ route('home') }}" class="flex items-center space-x-3">
+                <a href="{{ route('home') }}" class="flex items-center space-x-3 flex-shrink-0">
                     <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
                         <i class="fa-solid fa-building text-white text-sm"></i>
                     </div>
-                    <span class="text-xl font-bold text-slate-900">Real Estate Pro</span>
+                    <span class="text-xl font-bold text-slate-900 whitespace-nowrap">Real Estate Pro</span>
                 </a>
 
                 {{-- Desktop Links --}}
-                <div class="hidden lg:flex items-center space-x-8">
+                <div class="hidden lg:flex flex-1 items-center justify-center gap-16">
                     <a href="{{ route('home') }}"
-                       class="text-sm font-medium transition-colors {{ request()->routeIs('home') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
-                        Home
+                       class="flex items-center gap-2 px-1 text-sm font-medium whitespace-nowrap transition-colors {{ request()->routeIs('home') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
+                        <i class="fa-solid fa-house text-xs"></i>Home
                     </a>
                     <a href="{{ route('properties.index') }}"
-                       class="text-sm font-medium transition-colors {{ request()->routeIs('properties.*') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
-                        Properties
+                       class="flex items-center gap-2 px-1 text-sm font-medium whitespace-nowrap transition-colors {{ request()->routeIs('properties.*') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
+                        <i class="fa-solid fa-building text-xs"></i>Properties
+                    </a>
+                    <a href="{{ route('map') }}"
+                       class="flex items-center gap-2 px-1 text-sm font-medium whitespace-nowrap transition-colors {{ request()->routeIs('map') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
+                        <i class="fa-solid fa-map-location-dot text-xs"></i>Map
                     </a>
                     <a href="{{ route('about') }}"
-                       class="text-sm font-medium transition-colors {{ request()->routeIs('about') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
-                        About
+                       class="flex items-center gap-2 px-1 text-sm font-medium whitespace-nowrap transition-colors {{ request()->routeIs('about') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
+                        <i class="fa-solid fa-circle-info text-xs"></i>About
                     </a>
                     <a href="{{ route('investors.index') }}"
-                       class="text-sm font-medium transition-colors {{ request()->routeIs('investors.*') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
-                        Investors
+                       class="flex items-center gap-2 px-1 text-sm font-medium whitespace-nowrap transition-colors {{ request()->routeIs('investors.*') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
+                        <i class="fa-solid fa-chart-line text-xs"></i>Investors
                     </a>
                     <a href="{{ route('contact.create') }}"
-                       class="text-sm font-medium transition-colors {{ request()->routeIs('contact.*') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
-                        Contact
+                       class="flex items-center gap-2 px-1 text-sm font-medium whitespace-nowrap transition-colors {{ request()->routeIs('contact.*') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
+                        <i class="fa-solid fa-envelope text-xs"></i>Contact
                     </a>
                 </div>
 
                 {{-- CTA + Mobile Toggle --}}
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center gap-3 flex-shrink-0 ml-auto lg:ml-0">
                     @auth
                         <a href="{{ route('admin.dashboard') }}"
-                           class="hidden lg:inline-flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+                           class="hidden lg:inline-flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap">
                             Dashboard
                         </a>
                     @else
                         <a href="{{ route('properties.index') }}"
-                           class="hidden lg:inline-flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+                           class="hidden lg:inline-flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap">
                             Find Property
                         </a>
                     @endauth
@@ -95,24 +101,28 @@
              class="lg:hidden border-t border-slate-200 bg-white">
             <div class="px-4 py-4 space-y-2">
                 <a href="{{ route('home') }}"
-                   class="block px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
-                    Home
+                   class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-house w-4 text-center"></i>Home
                 </a>
                 <a href="{{ route('properties.index') }}"
-                   class="block px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('properties.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
-                    Properties
+                   class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('properties.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-building w-4 text-center"></i>Properties
+                </a>
+                <a href="{{ route('map') }}"
+                   class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('map') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-map-location-dot w-4 text-center"></i>Map
                 </a>
                 <a href="{{ route('about') }}"
-                   class="block px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('about') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
-                    About
+                   class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('about') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-circle-info w-4 text-center"></i>About
                 </a>
                 <a href="{{ route('investors.index') }}"
-                   class="block px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('investors.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
-                    Investors
+                   class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('investors.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-chart-line w-4 text-center"></i>Investors
                 </a>
                 <a href="{{ route('contact.create') }}"
-                   class="block px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('contact.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
-                    Contact
+                   class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('contact.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-envelope w-4 text-center"></i>Contact
                 </a>
                 <div class="pt-2">
                     @auth
@@ -228,5 +238,6 @@
         </div>
     </footer>
 
+    @stack('scripts')
 </body>
 </html>

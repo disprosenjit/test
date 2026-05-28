@@ -151,7 +151,7 @@
                     </div>
 
                     <!-- Features Grid -->
-                    <div>
+                    <div class="mb-10">
                         <h2 class="text-xl font-semibold text-slate-900 mb-6">Property Features</h2>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                             <div class="bg-slate-50 rounded-xl p-5 text-center border border-slate-200">
@@ -175,6 +175,21 @@
                                 <p class="text-sm text-slate-500 mt-1">Parking</p>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Map -->
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-900 mb-4">
+                            <i class="fas fa-map-marker-alt text-blue-600 mr-2"></i>Location on Map
+                        </h2>
+                        <div id="property-map" style="height:380px; border-radius:1rem; border:1px solid #e2e8f0;"></div>
+                        <p class="text-sm text-slate-500 mt-2">
+                            <i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>
+                            {{ $property->address }}
+                            @if($property->city), {{ $property->city }}@endif
+                            @if($property->state), {{ $property->state }}@endif
+                            @if($property->country), {{ $property->country }}@endif
+                        </p>
                     </div>
                 </div>
 
@@ -255,3 +270,59 @@
         </div>
     </section>
 @endsection
+
+@push('head')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+@endpush
+
+@push('scripts')
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var mapEl = document.getElementById('property-map');
+        if (!mapEl) return;
+
+        var lat     = {{ $property->latitude  !== null ? (float) $property->latitude  : 'null' }};
+        var lng     = {{ $property->longitude !== null ? (float) $property->longitude : 'null' }};
+        var title   = {{ Js::from($property->title) }};
+        var address = {{ Js::from(trim(implode(', ', array_filter([$property->address, $property->city, $property->state, $property->country])))) }};
+
+        function buildMap(lat, lng) {
+            var map = L.map('property-map', { scrollWheelZoom: false }).setView([lat, lng], 15);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup('<strong>' + title + '</strong><br><span style="color:#64748b;font-size:0.85em">' + address + '</span>')
+                .openPopup();
+        }
+
+        if (lat !== null && lng !== null) {
+            buildMap(lat, lng);
+        } else if (address) {
+            mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94a3b8;font-size:0.9rem;"><i class="fas fa-spinner fa-spin" style="margin-right:8px"></i>Loading map…</div>';
+            fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(address), {
+                headers: { 'Accept-Language': 'en', 'User-Agent': 'RealEstatePro/1.0' }
+            })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data && data.length > 0) {
+                    mapEl.innerHTML = '';
+                    buildMap(parseFloat(data[0].lat), parseFloat(data[0].lon));
+                } else {
+                    mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94a3b8;font-size:0.9rem;">Location not found on map</div>';
+                }
+            })
+            .catch(function () {
+                mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94a3b8;font-size:0.9rem;">Map unavailable</div>';
+            });
+        } else {
+            mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94a3b8;font-size:0.9rem;">No location data</div>';
+        }
+    });
+    </script>
+@endpush

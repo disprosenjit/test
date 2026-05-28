@@ -13,7 +13,12 @@ class Property extends Model
         'price',
         'type',
         'location',
+        'country',
+        'state',
+        'city',
         'address',
+        'latitude',
+        'longitude',
         'area',
         'bedrooms',
         'bathrooms',
@@ -27,6 +32,8 @@ class Property extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'area' => 'float',
+        'latitude' => 'float',
+        'longitude' => 'float',
         'is_featured' => 'boolean',
         'is_available' => 'boolean',
     ];

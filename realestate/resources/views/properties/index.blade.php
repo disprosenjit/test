@@ -20,41 +20,95 @@
     <!-- Filter Bar -->
     <section class="bg-white border-b border-slate-200 py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <form action="{{ route('properties.filter') }}" method="GET">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
-                    <!-- Type Select -->
-                    <div>
-                        <label for="type" class="block text-sm font-medium text-slate-700 mb-1">Property Type</label>
-                        <select id="type" name="type" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+            <form action="{{ route('properties.filter') }}" method="GET"
+                  x-data="{
+                      locationData: {{ json_encode($hierarchy ?? []) }},
+                      selectedCountry: '{{ request('country', '') }}',
+                      selectedState: '{{ request('state', '') }}',
+                      selectedCity: '{{ request('city', '') }}',
+                      get states() {
+                          if (!this.selectedCountry || !this.locationData[this.selectedCountry]) return [];
+                          return Object.keys(this.locationData[this.selectedCountry]).filter(s => s !== '');
+                      },
+                      get cities() {
+                          if (!this.selectedCountry || !this.selectedState) return [];
+                          const stateCities = this.locationData[this.selectedCountry]?.[this.selectedState];
+                          return stateCities ? stateCities.filter(c => c) : [];
+                      },
+                      onCountryChange() { this.selectedState = ''; this.selectedCity = ''; },
+                      onStateChange()   { this.selectedCity = ''; }
+                  }">
+                <div class="flex flex-nowrap items-end gap-2">
+                    <!-- Property Type -->
+                    <div class="flex-1 min-w-0">
+                        <label for="type" class="block text-xs font-medium text-slate-600 mb-1">Type</label>
+                        <select id="type" name="type" class="w-full border border-slate-200 rounded-lg px-2 py-2.5 text-slate-900 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
                             <option value="">All Types</option>
-                            <option value="residential" {{ old('type') == 'residential' ? 'selected' : '' }}>Residential</option>
-                            <option value="commercial" {{ old('type') == 'commercial' ? 'selected' : '' }}>Commercial</option>
-                            <option value="land" {{ old('type') == 'land' ? 'selected' : '' }}>Land</option>
+                            <option value="residential" {{ request('type') == 'residential' ? 'selected' : '' }}>Residential</option>
+                            <option value="commercial"  {{ request('type') == 'commercial'  ? 'selected' : '' }}>Commercial</option>
+                            <option value="land"        {{ request('type') == 'land'        ? 'selected' : '' }}>Land</option>
                         </select>
                     </div>
 
-                    <!-- Location Input -->
-                    <div>
-                        <label for="location" class="block text-sm font-medium text-slate-700 mb-1">Location</label>
-                        <input type="text" id="location" name="location" value="{{ old('location') }}" placeholder="Enter location" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                    <!-- Country -->
+                    <div class="flex-1 min-w-0">
+                        <label for="country" class="block text-xs font-medium text-slate-600 mb-1">Country</label>
+                        <select id="country" name="country"
+                                x-model="selectedCountry"
+                                @change="onCountryChange()"
+                                class="w-full border border-slate-200 rounded-lg px-2 py-2.5 text-slate-900 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                            <option value="">All Countries</option>
+                            @foreach($countries ?? [] as $country)
+                                <option value="{{ $country }}">{{ $country }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- State -->
+                    <div class="flex-1 min-w-0">
+                        <label for="state" class="block text-xs font-medium text-slate-600 mb-1">State</label>
+                        <select id="state" name="state"
+                                x-model="selectedState"
+                                @change="onStateChange()"
+                                class="w-full border border-slate-200 rounded-lg px-2 py-2.5 text-slate-900 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                                :disabled="states.length === 0">
+                            <option value="">All States</option>
+                            <template x-for="s in states" :key="s">
+                                <option :value="s" :selected="s === selectedState" x-text="s"></option>
+                            </template>
+                        </select>
+                    </div>
+
+                    <!-- City -->
+                    <div class="flex-1 min-w-0">
+                        <label for="city" class="block text-xs font-medium text-slate-600 mb-1">City</label>
+                        <select id="city" name="city"
+                                x-model="selectedCity"
+                                class="w-full border border-slate-200 rounded-lg px-2 py-2.5 text-slate-900 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                                :disabled="cities.length === 0">
+                            <option value="">All Cities</option>
+                            <template x-for="c in cities" :key="c">
+                                <option :value="c" :selected="c === selectedCity" x-text="c"></option>
+                            </template>
+                        </select>
                     </div>
 
                     <!-- Min Price -->
-                    <div>
-                        <label for="min_price" class="block text-sm font-medium text-slate-700 mb-1">Min Price</label>
-                        <input type="number" id="min_price" name="min_price" value="{{ old('min_price') }}" placeholder="Min" min="0" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                    <div class="flex-1 min-w-0">
+                        <label for="min_price" class="block text-xs font-medium text-slate-600 mb-1">Min Price</label>
+                        <input type="number" id="min_price" name="min_price" value="{{ request('min_price') }}" placeholder="Min" min="0" class="w-full border border-slate-200 rounded-lg px-2 py-2.5 text-slate-900 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
                     </div>
 
                     <!-- Max Price -->
-                    <div>
-                        <label for="max_price" class="block text-sm font-medium text-slate-700 mb-1">Max Price</label>
-                        <input type="number" id="max_price" name="max_price" value="{{ old('max_price') }}" placeholder="Max" min="0" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                    <div class="flex-1 min-w-0">
+                        <label for="max_price" class="block text-xs font-medium text-slate-600 mb-1">Max Price</label>
+                        <input type="number" id="max_price" name="max_price" value="{{ request('max_price') }}" placeholder="Max" min="0" class="w-full border border-slate-200 rounded-lg px-2 py-2.5 text-slate-900 text-sm placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
                     </div>
 
                     <!-- Search Button -->
-                    <div>
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-6 rounded-lg transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <i class="fas fa-search mr-2"></i>Search
+                    <div class="flex-shrink-0">
+                        <button type="submit" class="whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg text-sm transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            <i class="fas fa-search mr-1.5"></i>Search
                         </button>
                     </div>
                 </div>

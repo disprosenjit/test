@@ -4,6 +4,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SpecialRequestController;
 use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Frontend Routes
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/map', [MapController::class, 'index'])->name('map');
 
 // Properties
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
