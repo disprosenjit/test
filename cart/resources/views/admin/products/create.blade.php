@@ -30,15 +30,24 @@
                     @error('sku') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
-                <div>
+                <div class="product-classification-field">
                     <label class="block text-sm font-semibold mb-2">Part Number *</label>
-                    <input type="text" name="part_number" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('part_number') border-red-500 @enderror" value="{{ old('part_number') }}">
+                    <input type="text" name="part_number" data-physical-required="true" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('part_number') border-red-500 @enderror" value="{{ old('part_number') }}">
                     @error('part_number') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
+                    <label class="block text-sm font-semibold mb-2">Product Type *</label>
+                    <select name="product_type" id="productType" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('product_type') border-red-500 @enderror">
+                        <option value="physical" {{ old('product_type', 'physical') === 'physical' ? 'selected' : '' }}>Physical Product</option>
+                        <option value="downloadable" {{ old('product_type') === 'downloadable' ? 'selected' : '' }}>Downloadable Product</option>
+                    </select>
+                    @error('product_type') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                </div>
+
+                <div class="product-classification-field">
                     <label class="block text-sm font-semibold mb-2">Brand *</label>
-                    <select name="brand_id" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('brand_id') border-red-500 @enderror">
+                    <select name="brand_id" data-physical-required="true" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('brand_id') border-red-500 @enderror">
                         <option value="">Select Brand</option>
                         @foreach($brands as $brand)
                             <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
@@ -47,9 +56,9 @@
                     @error('brand_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
-                <div>
+                <div class="product-classification-field">
                     <label class="block text-sm font-semibold mb-2">Category *</label>
-                    <select name="category_id" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('category_id') border-red-500 @enderror">
+                    <select name="category_id" data-physical-required="true" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('category_id') border-red-500 @enderror">
                         <option value="">Select Category</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -58,7 +67,7 @@
                     @error('category_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
-                <div>
+                <div class="product-classification-field">
                     <label class="block text-sm font-semibold mb-2">Vessel Type</label>
                     <select name="vessel_type_id" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="">Select Vessel Type (Optional)</option>
@@ -127,6 +136,16 @@
             </div>
         </div>
 
+        <div class="space-y-4 mb-8" id="downloadFileSection">
+            <h3 class="text-lg font-semibold text-gray-900">Download File</h3>
+            <div>
+                <label class="block text-sm font-semibold mb-2">Upload Downloadable File</label>
+                <input type="file" name="download_file" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('download_file') border-red-500 @enderror">
+                <p class="text-gray-500 text-xs mt-1">Supported formats: image, video, PDF, office docs, zip, text and CSV.</p>
+                @error('download_file') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+            </div>
+        </div>
+
         <!-- Active Status -->
         <div class="space-y-4 mb-8">
             <h3 class="text-lg font-semibold text-gray-900">Settings</h3>
@@ -153,6 +172,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const specInput = document.getElementById('specificationsInput');
     const container = document.getElementById('specificationsContainer');
+    const productType = document.getElementById('productType');
     
     let specifications = {};
     
@@ -177,7 +197,29 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add one empty row if no specifications
         addSpecificationRow('', '');
     }
+
+    toggleDownloadSection(productType.value);
+    productType.addEventListener('change', function() {
+        toggleDownloadSection(this.value);
+    });
 });
+
+function toggleDownloadSection(value) {
+    const section = document.getElementById('downloadFileSection');
+    const classificationFields = document.querySelectorAll('.product-classification-field');
+    const physicalOnlyInputs = document.querySelectorAll('[data-physical-required="true"]');
+    const isDownloadable = value === 'downloadable';
+
+    section.style.display = value === 'downloadable' ? 'block' : 'none';
+
+    classificationFields.forEach((field) => {
+        field.style.display = isDownloadable ? 'none' : 'block';
+    });
+
+    physicalOnlyInputs.forEach((input) => {
+        input.required = !isDownloadable;
+    });
+}
 
 function addSpecificationRow(spec = '', value = '') {
     const container = document.getElementById('specificationsContainer');

@@ -28,6 +28,17 @@
                                 <p class="font-semibold">{{ $item->product_name }}</p>
                                 <p class="text-sm text-gray-600">SKU: {{ $item->product_sku }}</p>
                                 <p class="text-sm text-gray-600">Qty: {{ $item->quantity }}</p>
+                                @if($item->product?->isDownloadable())
+                                    <p class="text-sm text-indigo-700 mt-2">Downloadable product</p>
+                                    @if($order->payment_status === 'approved' && $item->product->hasDownloadFile())
+                                        <a href="/orders/{{ $order->id }}/items/{{ $item->id }}/download" class="inline-flex items-center gap-2 mt-2 rounded bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700">
+                                            <i class="fas fa-download"></i>
+                                            Download File
+                                        </a>
+                                    @else
+                                        <p class="text-sm text-gray-500 mt-2">Available after payment approval.</p>
+                                    @endif
+                                @endif
                             </div>
                             <div class="text-right">
                                 <p class="text-sm text-gray-600">Unit: ₹{{ number_format($item->unit_price, 2) }}</p>

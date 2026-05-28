@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Product::where('is_active', true);
+        $query = Product::query()->active()->visibleInStore();
 
         // Search
         if ($request->search) {
@@ -54,7 +54,7 @@ class ProductController extends Controller
 
         // In stock filter
         if ($request->in_stock) {
-            $query->where('stock_qty', '>', 0);
+            $query->inStock();
         }
 
         // Sorting
@@ -94,11 +94,14 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        abort_unless($product->is_active, 404);
+        abort_unless(Product::query()->visibleInStore()->whereKey($product->id)->exists(), 404);
+
         // Increment view count
         $product->increment('view_count');
 
         // Get related products
-        $relatedProducts = Product::where('is_active', true)
+        $relatedProducts = Product::query()->active()->visibleInStore()
             ->where('id', '!=', $product->id)
             ->where('category_id', $product->category_id)
             ->limit(4)

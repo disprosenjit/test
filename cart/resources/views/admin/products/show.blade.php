@@ -73,6 +73,10 @@
                     <p class="font-semibold">{{ $product->category->name ?? 'N/A' }}</p>
                 </div>
                 <div>
+                    <p class="text-gray-600 text-sm">Product Type</p>
+                    <p class="font-semibold">{{ ucfirst($product->product_type ?? 'physical') }}</p>
+                </div>
+                <div>
                     <p class="text-gray-600 text-sm">Vessel Type</p>
                     <p class="font-semibold">{{ $product->vesselType->name ?? 'General' }}</p>
                 </div>
@@ -125,41 +129,65 @@
             </div>
         </div>
 
-        <!-- Inventory Card -->
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-            <h3 class="text-lg font-bold mb-4">Inventory</h3>
-            
-            @php
-                $inventory = $product->inventory;
-            @endphp
+        @if($product->isDownloadable())
+            <div class="bg-white rounded-lg shadow p-6 mb-6">
+                <h3 class="text-lg font-bold mb-4">Download Asset</h3>
 
-            @if($inventory)
-                <div class="space-y-3">
-                    <div>
-                        <p class="text-gray-600 text-sm">Warehouse Qty</p>
-                        <p class="text-2xl font-bold">{{ $inventory->warehouse_qty }}</p>
+                @if($product->hasDownloadFile())
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <p class="text-gray-600">Filename</p>
+                            <p class="font-semibold break-all">{{ $product->getDownloadName() }}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">MIME Type</p>
+                            <p class="font-semibold">{{ $product->download_file_mime_type }}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">File Size</p>
+                            <p class="font-semibold">{{ number_format(($product->download_file_size ?? 0) / 1024, 1) }} KB</p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-gray-600 text-sm">Reserved Qty</p>
-                        <p class="text-xl font-semibold text-yellow-600">{{ $inventory->reserved_qty }}</p>
-                    </div>
-                    <div class="pt-3 border-t">
-                        <p class="text-gray-600 text-sm">Available Qty</p>
-                        <p class="text-2xl font-bold {{ $inventory->available_qty > 0 ? 'text-green-600' : 'text-red-600' }}">
-                            {{ $inventory->available_qty }}
-                        </p>
-                    </div>
-                </div>
-
-                @if($inventory->available_qty <= 10)
-                    <div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-yellow-800 text-sm">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>Low stock alert
-                    </div>
+                @else
+                    <p class="text-gray-500">No downloadable file uploaded yet.</p>
                 @endif
-            @else
-                <p class="text-gray-500">No inventory record</p>
-            @endif
-        </div>
+            </div>
+        @else
+            <div class="bg-white rounded-lg shadow p-6 mb-6">
+                <h3 class="text-lg font-bold mb-4">Inventory</h3>
+                
+                @php
+                    $inventory = $product->inventory;
+                @endphp
+
+                @if($inventory)
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-gray-600 text-sm">Warehouse Qty</p>
+                            <p class="text-2xl font-bold">{{ $inventory->warehouse_qty }}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Reserved Qty</p>
+                            <p class="text-xl font-semibold text-yellow-600">{{ $inventory->reserved_qty }}</p>
+                        </div>
+                        <div class="pt-3 border-t">
+                            <p class="text-gray-600 text-sm">Available Qty</p>
+                            <p class="text-2xl font-bold {{ $inventory->available_qty > 0 ? 'text-green-600' : 'text-red-600' }}">
+                                {{ $inventory->available_qty }}
+                            </p>
+                        </div>
+                    </div>
+
+                    @if($inventory->available_qty <= 10)
+                        <div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-yellow-800 text-sm">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>Low stock alert
+                        </div>
+                    @endif
+                @else
+                    <p class="text-gray-500">No inventory record</p>
+                @endif
+            </div>
+        @endif
 
         <!-- Status Card -->
         <div class="bg-white rounded-lg shadow p-6">

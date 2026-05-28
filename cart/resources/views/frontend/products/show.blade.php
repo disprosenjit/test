@@ -127,7 +127,9 @@
             <div class="bg-gray-50 p-6 rounded-lg mb-6">
                 <div class="text-3xl font-bold text-blue-600 mb-2">₹{{ number_format($product->price, 2) }}</div>
                 <div class="mb-2">
-                    @if($product->stock_qty > 0)
+                    @if($product->isDownloadable())
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded">Instant download after purchase</span>
+                    @elseif($product->stock_qty > 0)
                         <span class="bg-green-100 text-green-800 px-3 py-1 rounded">{{ $product->stock_qty }} in stock</span>
                     @else
                         <span class="bg-red-100 text-red-800 px-3 py-1 rounded">Out of Stock</span>
@@ -158,6 +160,7 @@
 
             <!-- Product Info -->
             <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
+                @if(!$product->isDownloadable())
                 <div>
                     <p class="text-gray-600">Brand</p>
                     <p class="font-semibold"><a href="/products?brand_id={{ $product->brand->id }}" class="text-blue-600 hover:underline">{{ $product->brand->name }}</a></p>
@@ -174,14 +177,19 @@
                     <p class="text-gray-600">Part Number</p>
                     <p class="font-semibold">{{ $product->part_number }}</p>
                 </div>
+                @endif
+                <div>
+                    <p class="text-gray-600">Product Type</p>
+                    <p class="font-semibold">{{ $product->isDownloadable() ? 'Downloadable' : 'Physical' }}</p>
+                </div>
             </div>
 
             <!-- Add to Cart Form -->
             <div class="flex gap-4">
-                <form onsubmit="addToCart(event)" class="flex gap-4 flex-1">
-                    <input type="number" name="quantity" value="1" min="1" max="{{ $product->stock_qty }}" class="w-20 px-3 py-2 border rounded-lg" {{ $product->stock_qty === 0 ? 'disabled' : '' }} />
-                    <button type="submit" {{ $product->stock_qty === 0 ? 'disabled' : '' }} class="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
-                        Add to Cart
+                <form onsubmit="handleBuyButton(event)" class="flex gap-4 flex-1">
+                    <input type="number" name="quantity" value="1" min="1" @if(!$product->isDownloadable()) max="{{ $product->stock_qty }}" @endif class="w-20 px-3 py-2 border rounded-lg" {{ !$product->isDownloadable() && $product->stock_qty === 0 ? 'disabled' : '' }} />
+                    <button type="submit" {{ !$product->isDownloadable() && $product->stock_qty === 0 ? 'disabled' : '' }} class="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
+                        {{ $product->isDownloadable() ? 'Buy & Download' : 'Add to Cart' }}
                     </button>
                 </form>
                 <button type="button" class="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50">
@@ -192,8 +200,13 @@
             <!-- Shipping Info -->
             <div class="mt-6 p-4 bg-blue-50 rounded-lg">
                 <p class="text-sm text-blue-800">
-                    <i class="fas fa-truck mr-2"></i>
-                    Free shipping on orders above ₹5,000 | Delivery in 2-3 business days
+                    @if($product->isDownloadable())
+                        <i class="fas fa-download mr-2"></i>
+                        Your file will be available from your order page once payment is approved.
+                    @else
+                        <i class="fas fa-truck mr-2"></i>
+                        Free shipping on orders above ₹5,000 | Delivery in 2-3 business days
+                    @endif
                 </p>
             </div>
         </div>
@@ -343,19 +356,22 @@ style.textContent = `
 document.head.appendChild(style);
 
 // Add to Cart
-async function addToCart(event) {
+const isDownloadableProduct = {{ $product->isDownloadable() ? 'true' : 'false' }};
+
+async function handleBuyButton(event) {
     event.preventDefault();
     const quantity = event.target.quantity.value;
     const productId = {{ $product->id }};
-    const productUrl = window.location.href; // Current product URL
-    
+    const productUrl = window.location.href;
+
     try {
         const response = await fetch('/api/cart/add', {
             method: 'POST',
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                'Authorization': 'Bearer ' + (localStorage.getItem('token') || '')
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ?? '',
             },
             body: JSON.stringify({
                 product_id: productId,
@@ -363,31 +379,42 @@ async function addToCart(event) {
             })
         });
 
-        const data = await response.json();
+        // Safely parse JSON — a server error may return HTML instead of JSON
+        let data = {};
+        try {
+            data = await response.json();
+        } catch (_) {
+            showNotification('Server error. Please try again.', 'error', 'Error');
+            return;
+        }
 
         if (response.ok) {
-            // User is logged in - add to cart and go to cart page
-            showNotification('Product added to cart successfully!', 'success', 'Success');
-            setTimeout(() => {
-                window.location.href = data.redirect; // Redirect to cart page
-            }, 1000);
+            if (isDownloadableProduct) {
+                // For downloadable products go straight to cart so the user can checkout
+                window.location.href = '/cart';
+            } else {
+                showNotification('Product added to cart successfully!', 'success', 'Success');
+                setTimeout(() => {
+                    window.location.href = data.redirect || '/cart';
+                }, 1000);
+            }
         } else if (response.status === 401) {
-            // User not logged in - store product info and redirect to login
+            // Not logged in – save pending item and redirect to login
             sessionStorage.setItem('pendingAddToCart', JSON.stringify({
                 product_id: productId,
                 quantity: parseInt(quantity),
-                return_url: productUrl // Return to product page after login
+                return_url: productUrl
             }));
-            showNotification('Redirecting to login...', 'info', 'Please Login');
+            showNotification('Please log in to continue.', 'info', 'Login Required');
             setTimeout(() => {
-                window.location.href = data.redirect + '?return_to=' + encodeURIComponent(productUrl);
-            }, 1000);
+                window.location.href = (data.redirect || '/login') + '?return_to=' + encodeURIComponent(productUrl);
+            }, 1200);
         } else {
-            showNotification(data.error || 'Error adding to cart', 'error', 'Error');
+            showNotification(data.error || 'Could not add item to cart. Please try again.', 'error', 'Error');
         }
     } catch (error) {
-        console.error('Error:', error);
-        showNotification('Error adding to cart', 'error', 'Error');
+        console.error('Cart error:', error);
+        showNotification('Could not add item to cart. Please try again.', 'error', 'Error');
     }
 }
 

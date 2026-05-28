@@ -12,7 +12,7 @@ class ProductSearchService
 
     public function __construct()
     {
-        $this->query = Product::query()->active();
+        $this->query = Product::query()->active()->visibleInStore();
     }
 
     /**
@@ -85,7 +85,7 @@ class ProductSearchService
     public function inStockOnly(bool $inStock = true): self
     {
         if ($inStock) {
-            $this->query->where('stock_qty', '>', 0);
+            $this->query->inStock();
         }
         return $this;
     }

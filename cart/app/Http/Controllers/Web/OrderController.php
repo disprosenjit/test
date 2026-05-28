@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\Commerce\Order;
+use App\Models\Commerce\OrderItem;
 use App\Helpers\PaymentMethodHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class OrderController extends Controller
@@ -58,6 +60,37 @@ class OrderController extends Controller
     }
 
     /**
+     * Download purchased product file.
+     */
+    public function downloadItem(Order $order, OrderItem $item)
+    {
+        if ($order->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        abort_unless($item->order_id === $order->id, 404);
+
+        $item->loadMissing('product');
+
+        if ($order->payment_status !== 'approved') {
+            return back()->with('error', 'Downloads are available after payment approval.');
+        }
+
+        if (!$item->product || !$item->product->hasDownloadFile()) {
+            abort(404);
+        }
+
+        $disk = Storage::disk('local');
+
+        abort_unless($disk->exists($item->product->download_file_path), 404);
+
+        return $disk->download(
+            $item->product->download_file_path,
+            $item->product->getDownloadName()
+        );
+    }
+
+    /**
      * Cancel order
      */
     public function cancel(Request $request, Order $order)
@@ -82,7 +115,9 @@ class OrderController extends Controller
 
         // Release inventory
         foreach ($order->items as $item) {
-            $item->product->inventory->release($item->quantity);
+            if ($item->product && $item->product->isPhysical() && $item->product->inventory) {
+                $item->product->inventory->release($item->quantity);
+            }
         }
 
         return redirect("/orders/$order->id")

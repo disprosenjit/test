@@ -60,6 +60,7 @@ class ProductController extends Controller
     {
         $product = Product::with(['brand', 'category', 'vesselType', 'inventory'])
             ->active()
+            ->visibleInStore()
             ->findOrFail($id);
 
         // Increment view count (can be queued for performance)
@@ -70,9 +71,9 @@ class ProductController extends Controller
 
     public function relatedProducts(int $id)
     {
-        $product = Product::active()->findOrFail($id);
+        $product = Product::active()->visibleInStore()->findOrFail($id);
 
-        $related = Product::where('category_id', $product->category_id)
+        $related = Product::query()->visibleInStore()->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->active()
             ->inStock()

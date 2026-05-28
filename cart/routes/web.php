@@ -28,7 +28,7 @@ use App\Http\Controllers\Admin\AdminPayPalIpnController;
 
 // Home
 Route::get('/', function () {
-    $products = \App\Models\Commerce\Product::active()->with(['brand', 'category', 'vesselType', 'inventory'])->paginate(12);
+    $products = \App\Models\Commerce\Product::active()->visibleInStore()->with(['brand', 'category', 'vesselType', 'inventory'])->paginate(12);
     return view('welcome', compact('products'));
 })->name('home');
 
@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::get('/orders/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice');
+    Route::get('/orders/{order}/items/{item}/download', [OrderController::class, 'downloadItem'])->name('orders.items.download');
 });
 
 // Products

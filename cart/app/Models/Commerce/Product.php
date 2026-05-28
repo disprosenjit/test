@@ -19,6 +19,7 @@ class Product extends Model
         'category_id',
         'vessel_type_id',
         'description',
+        'product_type',
         'specifications',
         'price',
         'cost',
@@ -27,6 +28,10 @@ class Product extends Model
         'dimensions',
         'image_url',
         'images',
+        'download_file_path',
+        'download_file_name',
+        'download_file_mime_type',
+        'download_file_size',
         'is_active',
     ];
 
@@ -37,6 +42,7 @@ class Product extends Model
         'price' => 'decimal:2',
         'cost' => 'decimal:2',
         'rating' => 'decimal:2',
+        'download_file_size' => 'integer',
     ];
 
     // Relationships
@@ -76,9 +82,31 @@ class Product extends Model
         return $query->where('is_active', true);
     }
 
+    public function scopeVisibleInStore($query)
+    {
+        return match (config('catalog.storefront_product_mode', 'all')) {
+            'downloadable' => $query->where('product_type', 'downloadable'),
+            'physical' => $query->where('product_type', 'physical'),
+            default => $query,
+        };
+    }
+
     public function scopeInStock($query)
     {
-        return $query->where('stock_qty', '>', 0);
+        return $query->where(function ($builder) {
+            $builder->where('product_type', 'downloadable')
+                ->orWhere('stock_qty', '>', 0);
+        });
+    }
+
+    public function scopePhysical($query)
+    {
+        return $query->where('product_type', 'physical');
+    }
+
+    public function scopeDownloadable($query)
+    {
+        return $query->where('product_type', 'downloadable');
     }
 
     public function scopeByBrand($query, $brandId)
@@ -110,7 +138,31 @@ class Product extends Model
     // Methods
     public function getAvailableQuantity(): int
     {
+        if ($this->isDownloadable()) {
+            return PHP_INT_MAX;
+        }
+
         return $this->inventory?->available_qty ?? $this->stock_qty;
+    }
+
+    public function isDownloadable(): bool
+    {
+        return $this->product_type === 'downloadable';
+    }
+
+    public function isPhysical(): bool
+    {
+        return !$this->isDownloadable();
+    }
+
+    public function hasDownloadFile(): bool
+    {
+        return $this->isDownloadable() && !empty($this->download_file_path);
+    }
+
+    public function getDownloadName(): string
+    {
+        return $this->download_file_name ?: basename((string) $this->download_file_path);
     }
 
     public function incrementViewCount()

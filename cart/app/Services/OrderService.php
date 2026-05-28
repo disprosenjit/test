@@ -62,7 +62,7 @@ class OrderService
             $billingAddress->update(['type' => 'both']);
         }
 
-        // Create order items and reserve inventory
+        // Create order items and reserve inventory for physical products only.
         foreach ($this->cart->items as $cartItem) {
             OrderItem::create([
                 'order_id' => $order->id,
@@ -74,14 +74,14 @@ class OrderService
                 'subtotal' => $cartItem->subtotal,
             ]);
 
-            // Update inventory
-            $inventory = Inventory::where('product_id', $cartItem->product_id)->first();
-            if ($inventory) {
-                $inventory->reserve($cartItem->quantity);
-            }
+            if ($cartItem->product->isPhysical()) {
+                $inventory = Inventory::where('product_id', $cartItem->product_id)->first();
+                if ($inventory) {
+                    $inventory->reserve($cartItem->quantity);
+                }
 
-            // Update product stock
-            $cartItem->product->decrement('stock_qty', $cartItem->quantity);
+                $cartItem->product->decrement('stock_qty', $cartItem->quantity);
+            }
         }
 
         // Clear cart
@@ -150,13 +150,14 @@ class OrderService
 
         // Release reserved inventory
         foreach ($order->items as $item) {
-            $inventory = Inventory::where('product_id', $item->product_id)->first();
-            if ($inventory) {
-                $inventory->release($item->quantity);
-            }
+            if ($item->product && $item->product->isPhysical()) {
+                $inventory = Inventory::where('product_id', $item->product_id)->first();
+                if ($inventory) {
+                    $inventory->release($item->quantity);
+                }
 
-            // Restore product stock
-            $item->product->increment('stock_qty', $item->quantity);
+                $item->product->increment('stock_qty', $item->quantity);
+            }
         }
 
         return true;

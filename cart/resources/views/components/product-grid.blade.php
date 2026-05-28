@@ -60,6 +60,10 @@
                     <a href="/products/{{ $product->id }}" class="hover:text-blue-600">
                         <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2">{{ $product->name }}</h3>
                     </a>
+
+                    @if($product->isDownloadable())
+                        <p class="text-xs font-semibold text-indigo-700 mb-2">Instant download</p>
+                    @endif
                     
                     @if($showSku)
                         <p class="text-xs text-gray-600 mb-2">SKU: <span class="font-mono">{{ $product->sku }}</span></p>
@@ -96,7 +100,9 @@
                             // Get available quantity using the model's method
                             $available = $product->getAvailableQuantity();
                         @endphp
-                        @if($available > 10)
+                        @if($product->isDownloadable())
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Downloadable</span>
+                        @elseif($available > 10)
                             <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">In Stock</span>
                         @elseif($available > 0)
                             <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Low Stock</span>
@@ -110,13 +116,13 @@
                         <a href="/products/{{ $product->id }}" class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold text-sm">
                             View Details
                         </a>
-                        @if($available > 0)
+                        @if($product->isDownloadable() || $available > 0)
                             <button 
                                 type="button"
                                 onclick="addToCart({{ $product->id }})"
                                 class="flex-1 bg-orange-600 hover:bg-orange-700 text-white py-2 rounded font-semibold text-sm transition"
                             >
-                                Add to Cart
+                                {{ $product->isDownloadable() ? 'Buy Now' : 'Add to Cart' }}
                             </button>
                         @else
                             <button 

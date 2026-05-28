@@ -210,6 +210,10 @@ class CartService
      */
     protected function getAvailableStock(Product $product): int
     {
+        if ($product->isDownloadable()) {
+            return PHP_INT_MAX;
+        }
+
         if ($product->relationLoaded('inventory') && $product->inventory) {
             return (int) ($product->inventory->available_qty ?? 0);
         }
