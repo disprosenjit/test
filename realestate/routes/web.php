@@ -8,8 +8,10 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GeocodingController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\ContactInquiryController;
 use App\Http\Controllers\Admin\SpecialRequestController as AdminSpecialRequestController;
 use App\Http\Controllers\Admin\InvestmentInquiryController;
@@ -29,6 +31,16 @@ Route::get('/properties', [PropertyController::class, 'index'])->name('propertie
 Route::get('/properties/filter', [PropertyController::class, 'filter'])->name('properties.filter');
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 
+// Availability calendar (public)
+Route::get('/properties/{property}/availability', [BookingController::class, 'availability'])->name('properties.availability');
+
+// Bookings (auth required)
+Route::middleware('auth')->group(function () {
+    Route::post('/properties/{property}/book', [BookingController::class, 'store'])->name('bookings.store');
+    Route::get('/my-bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::patch('/bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
+});
+
 // Contact
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
@@ -43,7 +55,7 @@ Route::get('/investors/inquiry', [InvestmentController::class, 'create'])->name(
 Route::post('/investors/inquiry', [InvestmentController::class, 'store'])->name('investors.store');
 
 // Admin Routes
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
@@ -69,6 +81,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('investments/{inquiry}', [InvestmentInquiryController::class, 'show'])->name('investments.show');
     Route::patch('investments/{inquiry}/status', [InvestmentInquiryController::class, 'updateStatus'])->name('investments.updateStatus');
     Route::delete('investments/{inquiry}', [InvestmentInquiryController::class, 'destroy'])->name('investments.destroy');
+
+    // Bookings
+    Route::get('bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
+    Route::get('bookings/{booking}', [AdminBookingController::class, 'show'])->name('bookings.show');
+    Route::patch('bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('bookings.status');
+    Route::delete('bookings/{booking}', [AdminBookingController::class, 'destroy'])->name('bookings.destroy');
 });
 
 // Profile Routes

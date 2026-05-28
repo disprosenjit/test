@@ -10,7 +10,7 @@
             <span class="inline-block px-4 py-1.5 bg-blue-600/10 border border-blue-500/20 text-blue-400 text-sm font-medium rounded-full mb-6">
                 About Us
             </span>
-            <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">About Real Estate Pro</h1>
+            <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">About {{ config('app.name') }}</h1>
             <p class="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
                 With over 15 years of experience, we have been helping families and investors find their perfect properties. Our commitment to excellence drives everything we do.
             </p>
@@ -25,7 +25,7 @@
                     <span class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-6">Our Story</span>
                     <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">Building Dreams Since 2010</h2>
                     <p class="text-slate-600 text-base leading-relaxed mb-6">
-                        Real Estate Pro was founded with a simple mission: to make property buying and selling a seamless, transparent, and rewarding experience. What started as a small team of passionate agents has grown into one of the most trusted names in real estate.
+                        {{ config('app.name') }} was founded with a simple mission: to make property booking a seamless, transparent, and rewarding experience. What started as a small team of passionate agents has grown into one of the most trusted names in real estate.
                     </p>
                     <p class="text-slate-600 text-base leading-relaxed mb-6">
                         Over the years, we have helped thousands of families find their dream homes, assisted investors in building profitable portfolios, and guided businesses to the perfect commercial spaces. Our success is built on a foundation of trust, expertise, and an unwavering commitment to our clients.

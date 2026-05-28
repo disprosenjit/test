@@ -13,10 +13,10 @@
                     Trusted by 850+ Happy Clients
                 </span>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                    Find Your Dream Property Today
+                    Your Perfect Holiday Home Awaits
                 </h1>
                 <p class="text-lg sm:text-xl text-slate-300 leading-relaxed mb-10 max-w-2xl">
-                    Discover exceptional properties tailored to your lifestyle. From luxury homes to smart investments, we make your real estate journey seamless and rewarding.
+                    Browse handpicked holiday homes and book your stay in minutes. Whether it's a beach retreat, mountain cabin, or city apartment — find the perfect escape for every occasion.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 mb-10">
                     <a href="{{ route('properties.index') }}"
@@ -260,98 +260,6 @@
                 <div class="py-4">
                     <p class="text-4xl sm:text-5xl font-bold text-white mb-3">24/7</p>
                     <p class="text-slate-400 text-sm">Support Available</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- Special Request CTA --}}
-    <section class="bg-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="max-w-3xl mx-auto">
-                <i class="fa-solid fa-magnifying-glass-location text-blue-600 text-4xl mb-6"></i>
-                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Can't Find Your Perfect Match?</h2>
-                <p class="text-slate-600 text-lg mb-8 leading-relaxed">
-                    Tell us exactly what you're looking for and our team of expert agents will find the perfect property tailored to your needs.
-                </p>
-                <a href="{{ route('special-requests.create') }}"
-                   class="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors text-base">
-                    Submit a Special Request
-                    <i class="fa-solid fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    {{-- Investment CTA --}}
-    <section class="bg-blue-600 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="max-w-3xl mx-auto">
-                <i class="fa-solid fa-chart-line text-white/80 text-4xl mb-6"></i>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Invest in Real Estate</h2>
-                <p class="text-blue-100 text-lg mb-8 leading-relaxed">
-                    Discover lucrative investment opportunities with proven returns. Our expert team guides you through every step of your investment journey.
-                </p>
-                <a href="{{ route('investors.index') }}"
-                   class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors text-base">
-                    Explore Investment Opportunities
-                    <i class="fa-solid fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    {{-- Why Choose Us --}}
-    <section class="bg-slate-50 py-14">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10">
-                <span class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-4">Why Us</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Why Choose Real Estate Pro</h2>
-                <p class="text-slate-600 text-lg max-w-2xl mx-auto">We stand apart with our commitment to excellence, transparency, and client satisfaction.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-shield-halved text-blue-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-slate-900 mb-3">Trusted & Verified</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">All our properties are thoroughly verified and documented, ensuring complete transparency in every transaction.</p>
-                </div>
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-handshake text-blue-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-slate-900 mb-3">Expert Negotiation</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">Our seasoned agents negotiate the best deals on your behalf, saving you time and money on every property.</p>
-                </div>
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-clock text-blue-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-slate-900 mb-3">24/7 Support</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">Our dedicated support team is available around the clock to answer your questions and assist with any needs.</p>
-                </div>
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-magnifying-glass text-blue-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-slate-900 mb-3">Wide Selection</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">Browse through hundreds of listings across all property types, from cozy apartments to luxury estates.</p>
-                </div>
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-dollar-sign text-blue-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-slate-900 mb-3">Best Value</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">We ensure competitive pricing and help you find properties that deliver the best return on your investment.</p>
-                </div>
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
-                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-file-contract text-blue-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-slate-900 mb-3">Legal Assistance</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">Our legal experts handle all paperwork and compliance, making the buying and selling process stress-free.</p>
                 </div>
             </div>
         </div>

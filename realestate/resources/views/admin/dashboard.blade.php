@@ -6,7 +6,7 @@
     {{-- Header --}}
     <div class="mb-8">
         <h1 class="text-2xl font-bold text-slate-900">Dashboard</h1>
-        <p class="mt-1 text-sm text-slate-600">Welcome back! Here is an overview of your real estate platform.</p>
+        <p class="mt-1 text-sm text-slate-600">Welcome back! Here is an overview of your platform.</p>
     </div>
 
     {{-- Stats Grid --}}
@@ -39,30 +39,30 @@
             </div>
         </div>
 
-        {{-- Special Requests --}}
+        {{-- Total Bookings --}}
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-yellow-500 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-slate-600">Special Requests</p>
-                    <p class="text-2xl font-bold text-slate-900 mt-1">{{ $specialRequests }}</p>
-                    <p class="text-xs text-slate-500 mt-1">{{ $pendingRequests }} pending</p>
+                    <p class="text-sm font-medium text-slate-600">Bookings</p>
+                    <p class="text-2xl font-bold text-slate-900 mt-1">{{ $totalBookings }}</p>
+                    <p class="text-xs text-slate-500 mt-1">{{ $pendingBookings }} pending</p>
                 </div>
                 <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-clipboard text-yellow-600 text-lg"></i>
+                    <i class="fas fa-calendar-check text-yellow-600 text-lg"></i>
                 </div>
             </div>
         </div>
 
-        {{-- Investments --}}
+        {{-- Confirmed Bookings --}}
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-purple-500 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-slate-600">Investments</p>
-                    <p class="text-2xl font-bold text-slate-900 mt-1">{{ $investmentInquiries }}</p>
-                    <p class="text-xs text-slate-500 mt-1">{{ $newInvestmentInquiries }} new</p>
+                    <p class="text-sm font-medium text-slate-600">Confirmed</p>
+                    <p class="text-2xl font-bold text-slate-900 mt-1">{{ $confirmedBookings }}</p>
+                    <p class="text-xs text-slate-500 mt-1">bookings confirmed</p>
                 </div>
                 <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-chart-line text-purple-600 text-lg"></i>
+                    <i class="fas fa-check-circle text-purple-600 text-lg"></i>
                 </div>
             </div>
         </div>
@@ -99,8 +99,7 @@
                         @empty
                             <tr>
                                 <td colspan="4" class="px-6 py-8 text-center text-sm text-slate-500">
-                                    <i class="fas fa-inbox text-slate-300 text-2xl mb-2"></i>
-                                    <p>No inquiries yet.</p>
+                                    <i class="fas fa-inbox text-slate-300 text-2xl mb-2 block"></i>No inquiries yet.
                                 </td>
                             </tr>
                         @endforelse
@@ -109,37 +108,44 @@
             </div>
         </div>
 
-        {{-- Recent Requests --}}
+        {{-- Recent Bookings --}}
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-slate-900">Recent Requests</h2>
-                <a href="{{ route('admin.requests.index') }}" class="text-sm text-blue-600 hover:text-blue-700 font-medium">View All</a>
+                <h2 class="text-lg font-semibold text-slate-900">Recent Bookings</h2>
+                <a href="{{ route('admin.bookings.index') }}" class="text-sm text-blue-600 hover:text-blue-700 font-medium">View All</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
                         <tr class="border-b border-slate-100">
-                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Name</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Type</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Budget</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Guest</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Property</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Dates</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
-                        @forelse($recentRequests as $request)
+                        @forelse($recentBookings as $booking)
                             <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="px-6 py-3 text-sm text-slate-900">
-                                    <a href="{{ route('admin.requests.show', $request) }}" class="hover:text-blue-600">{{ $request->name }}</a>
+                                <td class="px-6 py-3 text-sm text-slate-900">{{ $booking->user->name }}</td>
+                                <td class="px-6 py-3 text-sm text-slate-600">
+                                    <a href="{{ route('admin.bookings.show', $booking) }}" class="hover:text-blue-600">
+                                        {{ Str::limit($booking->property->title, 25) }}
+                                    </a>
                                 </td>
-                                <td class="px-6 py-3 text-sm text-slate-600">{{ $request->property_type_preference }}</td>
-                                <td class="px-6 py-3 text-sm text-slate-600">{{ $request->budget_range }}</td>
-                                <td class="px-6 py-3 text-sm text-slate-500">{{ $request->created_at->format('M d, Y') }}</td>
+                                <td class="px-6 py-3 text-sm text-slate-500 whitespace-nowrap">
+                                    {{ $booking->check_in->format('M d') }} – {{ $booking->check_out->format('M d, Y') }}
+                                </td>
+                                <td class="px-6 py-3">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold {{ $booking->statusBadgeClass() }}">
+                                        {{ ucfirst($booking->status) }}
+                                    </span>
+                                </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="4" class="px-6 py-8 text-center text-sm text-slate-500">
-                                    <i class="fas fa-inbox text-slate-300 text-2xl mb-2"></i>
-                                    <p>No requests yet.</p>
+                                    <i class="fas fa-calendar-times text-slate-300 text-2xl mb-2 block"></i>No bookings yet.
                                 </td>
                             </tr>
                         @endforelse

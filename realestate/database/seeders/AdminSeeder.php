@@ -13,9 +13,10 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@realestate.com',
-            'password' => 'password123',
+            'name'              => 'Admin User',
+            'email'             => 'admin@realestate.com',
+            'password'          => 'password123',
+            'is_admin'          => true,
             'email_verified_at' => now(),
         ]);
     }

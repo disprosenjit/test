@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex, nofollow">
 
-    <title>@yield('title', 'Real Estate Pro') - Real Estate Pro</title>
+    <title>@yield('title', config('app.name')) - {{ config('app.name') }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
                     <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
                         <i class="fa-solid fa-building text-white text-sm"></i>
                     </div>
-                    <span class="text-xl font-bold text-slate-900 whitespace-nowrap">Real Estate Pro</span>
+                    <span class="text-xl font-bold text-slate-900 whitespace-nowrap">{{ config('app.name') }}</span>
                 </a>
 
                 {{-- Desktop Links --}}
@@ -54,10 +54,6 @@
                        class="flex items-center gap-2 px-1 text-sm font-medium whitespace-nowrap transition-colors {{ request()->routeIs('about') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
                         <i class="fa-solid fa-circle-info text-xs"></i>About
                     </a>
-                    <a href="{{ route('investors.index') }}"
-                       class="flex items-center gap-2 px-1 text-sm font-medium whitespace-nowrap transition-colors {{ request()->routeIs('investors.*') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
-                        <i class="fa-solid fa-chart-line text-xs"></i>Investors
-                    </a>
                     <a href="{{ route('contact.create') }}"
                        class="flex items-center gap-2 px-1 text-sm font-medium whitespace-nowrap transition-colors {{ request()->routeIs('contact.*') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900' }}">
                         <i class="fa-solid fa-envelope text-xs"></i>Contact
@@ -67,15 +63,67 @@
                 {{-- CTA + Mobile Toggle --}}
                 <div class="flex items-center gap-3 flex-shrink-0 ml-auto lg:ml-0">
                     @auth
-                        <a href="{{ route('admin.dashboard') }}"
-                           class="hidden lg:inline-flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap">
-                            Dashboard
-                        </a>
+                        @if(auth()->user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}"
+                               class="hidden lg:inline-flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap">
+                                Dashboard
+                            </a>
+                        @else
+                            {{-- Desktop user dropdown --}}
+                            <div class="hidden lg:block relative" x-data="{ userMenuOpen: false }" @click.outside="userMenuOpen = false">
+                                <button @click="userMenuOpen = !userMenuOpen"
+                                        class="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors">
+                                    <div class="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-blue-600 text-xs"></i>
+                                    </div>
+                                    <span class="max-w-28 truncate">{{ auth()->user()->name }}</span>
+                                    <i class="fas fa-chevron-down text-xs text-slate-400 transition-transform duration-200" :class="userMenuOpen ? 'rotate-180' : ''"></i>
+                                </button>
+
+                                <div x-show="userMenuOpen"
+                                     x-transition:enter="transition ease-out duration-100"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     x-transition:leave="transition ease-in duration-75"
+                                     x-transition:leave-start="opacity-100 scale-100"
+                                     x-transition:leave-end="opacity-0 scale-95"
+                                     x-cloak
+                                     class="absolute right-0 mt-2 w-52 bg-white rounded-xl border border-slate-200 shadow-lg py-1 z-50">
+                                    <div class="px-4 py-2.5 border-b border-slate-100">
+                                        <p class="text-xs text-slate-400">Signed in as</p>
+                                        <p class="text-sm font-semibold text-slate-800 truncate">{{ auth()->user()->email }}</p>
+                                    </div>
+                                    <a href="{{ route('bookings.index') }}"
+                                       class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors">
+                                        <i class="fas fa-calendar-check w-4 text-center text-slate-400"></i>My Bookings
+                                    </a>
+                                    <a href="{{ route('profile.edit') }}"
+                                       class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors">
+                                        <i class="fas fa-user w-4 text-center text-slate-400"></i>My Profile
+                                    </a>
+                                    <div class="border-t border-slate-100 mt-1 pt-1">
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit"
+                                                    class="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors">
+                                                <i class="fas fa-sign-out-alt w-4 text-center"></i>Logout
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     @else
-                        <a href="{{ route('properties.index') }}"
-                           class="hidden lg:inline-flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap">
-                            Find Property
-                        </a>
+                        <div class="hidden lg:flex items-center gap-2">
+                            <a href="{{ route('login') }}"
+                               class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap">
+                                Log In
+                            </a>
+                            <a href="{{ route('register') }}"
+                               class="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap">
+                                Sign Up
+                            </a>
+                        </div>
                     @endauth
 
                     {{-- Mobile Menu Button --}}
@@ -116,25 +164,48 @@
                    class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('about') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
                     <i class="fa-solid fa-circle-info w-4 text-center"></i>About
                 </a>
-                <a href="{{ route('investors.index') }}"
-                   class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('investors.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
-                    <i class="fa-solid fa-chart-line w-4 text-center"></i>Investors
-                </a>
                 <a href="{{ route('contact.create') }}"
                    class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('contact.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
                     <i class="fa-solid fa-envelope w-4 text-center"></i>Contact
                 </a>
                 <div class="pt-2">
                     @auth
-                        <a href="{{ route('admin.dashboard') }}"
-                           class="block w-full text-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors">
-                            Dashboard
-                        </a>
+                        @if(auth()->user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}"
+                               class="block w-full text-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+                                Dashboard
+                            </a>
+                        @else
+                            <div class="border-t border-slate-100 pt-2 space-y-1">
+                                <p class="px-4 py-1 text-xs text-slate-400 font-medium uppercase tracking-wider">{{ auth()->user()->name }}</p>
+                                <a href="{{ route('bookings.index') }}"
+                                   class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('bookings.index') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
+                                    <i class="fas fa-calendar-check w-4 text-center"></i>My Bookings
+                                </a>
+                                <a href="{{ route('profile.edit') }}"
+                                   class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium {{ request()->routeIs('profile.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50' }}">
+                                    <i class="fas fa-user w-4 text-center"></i>My Profile
+                                </a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit"
+                                            class="flex items-center gap-2 w-full px-4 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 transition-colors">
+                                        <i class="fas fa-sign-out-alt w-4 text-center"></i>Logout
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     @else
-                        <a href="{{ route('properties.index') }}"
-                           class="block w-full text-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors">
-                            Find Property
-                        </a>
+                        <div class="flex flex-col gap-2 pt-2 border-t border-slate-100">
+                            <a href="{{ route('login') }}"
+                               class="block w-full text-center px-5 py-2.5 border border-slate-200 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-50 transition-colors">
+                                Log In
+                            </a>
+                            <a href="{{ route('register') }}"
+                               class="block w-full text-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+                                Sign Up
+                            </a>
+                        </div>
                     @endauth
                 </div>
             </div>
@@ -156,7 +227,7 @@
                         <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
                             <i class="fa-solid fa-building text-white text-sm"></i>
                         </div>
-                        <span class="text-xl font-bold text-white">Real Estate Pro</span>
+                        <span class="text-xl font-bold text-white">{{ config('app.name') }}</span>
                     </a>
                     <p class="text-slate-300 text-sm leading-relaxed mb-6">
                         Your trusted partner in finding the perfect property. We bring expertise, integrity, and dedication to every transaction.
@@ -184,7 +255,6 @@
                         <li><a href="{{ route('home') }}" class="text-slate-300 hover:text-white text-sm transition-colors">Home</a></li>
                         <li><a href="{{ route('properties.index') }}" class="text-slate-300 hover:text-white text-sm transition-colors">Properties</a></li>
                         <li><a href="{{ route('about') }}" class="text-slate-300 hover:text-white text-sm transition-colors">About Us</a></li>
-                        <li><a href="{{ route('investors.index') }}" class="text-slate-300 hover:text-white text-sm transition-colors">Investors</a></li>
                         <li><a href="{{ route('contact.create') }}" class="text-slate-300 hover:text-white text-sm transition-colors">Contact</a></li>
                     </ul>
                 </div>
@@ -229,7 +299,7 @@
         {{-- Bottom Bar --}}
         <div class="border-t border-slate-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-                <p class="text-slate-400 text-sm">&copy; {{ date('Y') }} Real Estate Pro. All rights reserved.</p>
+                <p class="text-slate-400 text-sm">&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
                 <div class="flex items-center space-x-6">
                     <a href="#" class="text-slate-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
                     <a href="#" class="text-slate-400 hover:text-white text-sm transition-colors">Terms of Service</a>

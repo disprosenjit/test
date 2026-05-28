@@ -56,18 +56,11 @@
                     <span>Inquiries</span>
                 </a>
 
-                <a href="{{ route('admin.requests.index') }}"
+                <a href="{{ route('admin.bookings.index') }}"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors
-                          {{ request()->routeIs('admin.requests.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                    <i class="fas fa-clipboard w-5 text-center"></i>
-                    <span>Special Requests</span>
-                </a>
-
-                <a href="{{ route('admin.investments.index') }}"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors
-                          {{ request()->routeIs('admin.investments.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                    <i class="fas fa-chart-line w-5 text-center"></i>
-                    <span>Investments</span>
+                          {{ request()->routeIs('admin.bookings.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                    <i class="fas fa-calendar-check w-5 text-center"></i>
+                    <span>Bookings</span>
                 </a>
 
                 {{-- Divider --}}
