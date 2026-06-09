@@ -150,10 +150,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @php
             $team = [
-                ['name' => 'Daniel Osei', 'role' => 'CEO & Co-Founder', 'bio' => 'Full-stack engineer turned entrepreneur. 12 years building scalable web systems.', 'letter' => 'D', 'color' => 'from-indigo-500 to-indigo-700'],
-                ['name' => 'Priya Sharma', 'role' => 'CTO & Co-Founder', 'bio' => 'Former senior engineer at a top-5 tech company. Architect of our development standards.', 'letter' => 'P', 'color' => 'from-violet-500 to-violet-700'],
-                ['name' => 'Marcus Webb', 'role' => 'Head of Design', 'bio' => 'Award-winning UX designer with a background in cognitive psychology and human-computer interaction.', 'letter' => 'M', 'color' => 'from-indigo-600 to-violet-600'],
-                ['name' => 'Fatima Al-Hassan', 'role' => 'Head of Mobile', 'bio' => 'Led mobile development teams at multiple unicorn startups. iOS and Android expert.', 'letter' => 'F', 'color' => 'from-violet-600 to-indigo-500'],
+                ['name' => 'Prosenjit Pramanick', 'role' => 'CEO & Co-Founder', 'bio' => 'Full-stack engineer turned entrepreneur. 19 years building scalable web systems.', 'letter' => 'P', 'color' => 'from-indigo-500 to-indigo-700'],
+                ['name' => 'Kallol Sam', 'role' => 'Co-Founder & Head of AI Team', 'bio' => 'A highly adaptable, results-driven AI Head and Principal AI/ML Engineer specializing in end-to-end AI product lifecycles and scalable architecture.', 'letter' => 'K', 'color' => 'from-violet-500 to-violet-700'],
+                ['name' => 'Sujay Bhattacharya', 'role' => 'Co-Founder & Head of Backend Developing Team', 'bio' => 'Backend developer turned entrepreneur with nearly 19 years of experience in scalable web applications, database design, and software architecture.', 'letter' => 'S', 'color' => 'from-indigo-600 to-violet-600'],
+                ['name' => 'Tridip Sarkar', 'role' => 'Co-Founder & Head of IOS Team', 'bio' => 'Led mobile development teams at multiple unicorn startups. iOS and Android expert.', 'letter' => 'T', 'color' => 'from-violet-600 to-indigo-500'],['name' => 'Avisek Mal', 'role' => 'Co-Founder & Head of Android Team', 'bio' => 'Led mobile development teams at multiple unicorn startups. iOS and Android expert.', 'letter' => 'A', 'color' => 'from-violet-600 to-indigo-500'],['name' => 'Pathikrit Pramanick', 'role' => 'Co-Founder & Head of HR Team', 'bio' => 'An HR professional with technical expertise (like WordPress) acts as a Digital HR Leader.', 'letter' => 'P', 'color' => 'from-violet-600 to-indigo-500'],
             ];
             @endphp
             @foreach ($team as $member)
