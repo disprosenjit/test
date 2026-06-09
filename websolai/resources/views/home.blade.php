@@ -205,6 +205,7 @@
 </section>
 
 {{-- Testimonials --}}
+<?php/*?>
 <section class="py-24 bg-slate-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-16">
@@ -243,6 +244,7 @@
         </div>
     </div>
 </section>
+*/?>
 
 {{-- CTA --}}
 <section class="py-24 bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-700">
