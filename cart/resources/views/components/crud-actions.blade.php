@@ -12,6 +12,7 @@
         'md' => 'text-base',
         default => 'text-sm',
     };
+    $uniqueId = uniqid('delete-form-');
 @endphp
 
 <div class="flex items-center justify-center gap-3">
@@ -36,14 +37,14 @@
     {{-- Delete Action --}}
     @if($deleteRoute)
         <button type="button"
-                onclick="openDeleteModal('delete-modal-{{ uniqid() }}', '{{ $deleteMessage }}')"
+                onclick="openDeleteModal('{{ $uniqueId }}', '{{ $deleteMessage }}')"
                 class="text-red-600 hover:text-red-800 hover:bg-red-50 p-2 rounded-md transition-colors duration-200"
                 title="Delete">
             <i class="fas fa-trash {{ $sizeClasses }}"></i>
         </button>
 
         {{-- Hidden Form for Delete --}}
-        <form id="delete-modal-{{ uniqid() }}" method="POST" action="{{ $deleteRoute }}" style="display: none;">
+        <form id="{{ $uniqueId }}" method="POST" action="{{ $deleteRoute }}" style="display: none;">
             @csrf
             @method('DELETE')
         </form>

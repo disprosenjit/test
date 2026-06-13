@@ -156,6 +156,31 @@
             </label>
         </div>
 
+        <!-- SEO Information -->
+        <div class="space-y-4 mb-8">
+            <h3 class="text-lg font-semibold text-gray-900">SEO Information</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Meta Title</label>
+                    <input type="text" name="meta_title" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('meta_title') border-red-500 @enderror" value="{{ old('meta_title', $product->meta_title) }}" placeholder="If empty, defaults to product name">
+                    @error('meta_title') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Meta Description</label>
+                    <textarea name="meta_description" rows="3" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('meta_description') border-red-500 @enderror" placeholder="If empty, defaults to product description">{{ old('meta_description', $product->meta_description) }}</textarea>
+                    @error('meta_description') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Meta Keywords</label>
+                    <input type="text" name="meta_keywords" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('meta_keywords') border-red-500 @enderror" value="{{ old('meta_keywords', $product->meta_keywords) }}" placeholder="Comma-separated keywords, e.g., ship, parts, engine">
+                    @error('meta_keywords') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                </div>
+            </div>
+        </div>
+
         <!-- Actions -->
         <div class="mt-8 flex gap-3">
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold">

@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
-@section('title', $page->title)
-@section('meta_description', $page->meta_description ?? $page->title)
+@section('title', $page->meta_title ?: $page->title)
+@section('meta_description', $page->meta_description ?: Str::limit(strip_tags($page->content), 155))
+@if($page->meta_keywords)
+@section('meta_keywords', $page->meta_keywords)
+@endif
 
 @section('content')
 <div class="bg-gray-50 min-h-screen py-12">

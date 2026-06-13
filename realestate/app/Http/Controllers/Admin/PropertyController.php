@@ -15,9 +15,20 @@ class PropertyController extends Controller
     /**
      * Display a listing of properties.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $properties = Property::orderBy('created_at', 'desc')->paginate(10);
+        $query = Property::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('type', 'like', "%{$search}%")
+                  ->orWhere('city', 'like', "%{$search}%");
+            });
+        }
+
+        $properties = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
         return view('admin.properties.index', compact('properties'));
     }
 
@@ -52,6 +63,7 @@ class PropertyController extends Controller
             'parking_spaces' => 'nullable|integer|min:0',
             'is_featured' => 'boolean',
             'is_available' => 'boolean',
+            'hide_agent_info' => 'boolean',
             'agent_name' => 'nullable|string|max:255',
             'agent_contact' => 'nullable|string|max:20',
         ]);
@@ -93,6 +105,7 @@ class PropertyController extends Controller
             'parking_spaces' => 'nullable|integer|min:0',
             'is_featured' => 'boolean',
             'is_available' => 'boolean',
+            'hide_agent_info' => 'boolean',
             'agent_name' => 'nullable|string|max:255',
             'agent_contact' => 'nullable|string|max:20',
         ]);

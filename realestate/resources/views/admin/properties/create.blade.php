@@ -224,6 +224,12 @@
                                class="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500">
                         <span class="text-sm font-medium text-slate-700">Available</span>
                     </label>
+
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" name="hide_agent_info" value="1" {{ old('hide_agent_info') ? 'checked' : '' }}
+                               class="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500">
+                        <span class="text-sm font-medium text-slate-700">Hide agent information from public</span>
+                    </label>
                 </div>
             </div>
 

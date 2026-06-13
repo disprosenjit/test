@@ -28,6 +28,9 @@ class Product extends Model
         'image_url',
         'images',
         'is_active',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 
     protected $casts = [

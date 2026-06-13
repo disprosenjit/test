@@ -25,6 +25,7 @@ class Property extends Model
         'parking_spaces',
         'is_featured',
         'is_available',
+        'hide_agent_info',
         'agent_name',
         'agent_contact',
     ];
@@ -36,6 +37,7 @@ class Property extends Model
         'longitude' => 'float',
         'is_featured' => 'boolean',
         'is_available' => 'boolean',
+        'hide_agent_info' => 'boolean',
     ];
 
     public function images(): HasMany

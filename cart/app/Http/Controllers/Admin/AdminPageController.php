@@ -54,7 +54,9 @@ class AdminPageController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|unique:pages|max:255',
             'content' => 'required|string',
+            'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:255',
+            'meta_keywords' => 'nullable|string',
             'is_active' => 'boolean',
         ]);
 
@@ -91,7 +93,9 @@ class AdminPageController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|unique:pages,title,' . $page->id . '|max:255',
             'content' => 'required|string',
+            'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:255',
+            'meta_keywords' => 'nullable|string',
             'is_active' => 'boolean',
         ]);
 

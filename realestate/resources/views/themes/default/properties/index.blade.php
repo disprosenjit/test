@@ -11,7 +11,7 @@
                 <ol class="flex items-center space-x-2 text-sm">
                     <li><a href="{{ url('/') }}" class="text-slate-300 hover:text-white transition-colors">Home</a></li>
                     <li><span class="text-slate-500">/</span></li>
-                    <li><span class="text-blue-400">Properties</span></li>
+                    <li><span class="text-blue-400">Properties </span></li>
                 </ol>
             </nav>
         </div>

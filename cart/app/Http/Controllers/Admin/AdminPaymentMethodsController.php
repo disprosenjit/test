@@ -27,8 +27,16 @@ class AdminPaymentMethodsController extends Controller
     {
         $manager = PaymentMethodsManager::getInstance();
         $methodInstance = $manager->get($paymentMethod->key);
+        $paypalSettings = null;
+        $stripeSettings = null;
 
-        return view('admin.payments.payment-method-show', compact('paymentMethod', 'methodInstance'));
+        if ($paymentMethod->key === 'paypal') {
+            $paypalSettings = \Plugins\PaymentPayPal\Models\PaypalSetting::first();
+        } elseif ($paymentMethod->key === 'stripe') {
+            $stripeSettings = \Plugins\PaymentStripe\Models\StripeSetting::first();
+        }
+
+        return view('admin.payments.payment-method-show', compact('paymentMethod', 'methodInstance', 'paypalSettings', 'stripeSettings'));
     }
 
     /**
@@ -77,6 +85,37 @@ class AdminPaymentMethodsController extends Controller
         ]);
 
         $paymentMethod->update($validated);
+
+        if ($paymentMethod->key === 'paypal') {
+            $paypalValidated = $request->validate([
+                'client_id' => 'required|string',
+                'client_secret' => 'required|string',
+                'environment' => 'required|in:sandbox,live',
+                'currency' => 'required|string|size:3',
+            ]);
+
+            $paypalValidated['is_active'] = $paymentMethod->is_enabled;
+            $paypalValidated['configured_by'] = auth()->id();
+            $paypalValidated['configured_at'] = now();
+
+            \Plugins\PaymentPayPal\Models\PaypalSetting::truncate();
+            \Plugins\PaymentPayPal\Models\PaypalSetting::create($paypalValidated);
+        } elseif ($paymentMethod->key === 'stripe') {
+            $stripeValidated = $request->validate([
+                'publishable_key' => 'required|string',
+                'secret_key' => 'required|string',
+                'webhook_secret' => 'nullable|string',
+                'environment' => 'required|in:test,live',
+                'currency' => 'required|string|size:3',
+            ]);
+
+            $stripeValidated['is_active'] = $paymentMethod->is_enabled;
+            $stripeValidated['configured_by'] = auth()->id();
+            $stripeValidated['configured_at'] = now();
+
+            \Plugins\PaymentStripe\Models\StripeSetting::truncate();
+            \Plugins\PaymentStripe\Models\StripeSetting::create($stripeValidated);
+        }
 
         return redirect("/admin/payment-methods/{$paymentMethod->id}")
             ->with('success', 'Payment method settings updated');

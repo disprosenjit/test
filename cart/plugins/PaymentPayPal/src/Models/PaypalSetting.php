@@ -11,12 +11,22 @@ class PaypalSetting extends Model
         'client_id',
         'client_secret',
         'environment',
+        'is_active',
         'currency',
-        'enabled',
+        'business_name',
+        'business_email',
+        'minimum_amount',
+        'maximum_amount',
+        'notes',
+        'configured_at',
+        'configured_by',
     ];
 
     protected $casts = [
-        'enabled' => 'boolean',
+        'is_active' => 'boolean',
+        'minimum_amount' => 'decimal:2',
+        'maximum_amount' => 'decimal:2',
+        'configured_at' => 'datetime',
     ];
 
     /**
@@ -33,6 +43,6 @@ class PaypalSetting extends Model
      */
     public static function getActive(): ?self
     {
-        return self::where('enabled', true)->first() ?? self::first();
+        return self::where('is_active', true)->first() ?? self::first();
     }
 }

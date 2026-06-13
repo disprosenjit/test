@@ -6,6 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex, nofollow">
     <title>@yield('title', 'Ship Spare Parts Store')</title>
+    <meta name="description" content="@yield('meta_description', 'Your trusted provider of maritime spare parts and equipment.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'ship parts, maritime, spare parts')">
     
     @php 
         $settings = \App\Models\AppSettings::getSettings();

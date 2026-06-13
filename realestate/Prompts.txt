@@ -1,0 +1,48 @@
+change the admin theme and copy it from /var/www/html/freelancer/repos/soho-cms/soho-cms/ folder
+
+change admin text input background colours
+
+in admin/properties page change the table columns, 
+Col 1) Image Thumb
+Col 2) Name, Type, Address, is_featured, is_available
+Col 3) Price
+col 4) Actions
+
+Image Thumb path is wrong
+
+Add a new 3rd coumn and move Type there
+
+add a search bar, and allow search by name, type , and city
+
+increase the space between search box and add property button and fix the magnifying glass icon position
+
+in admin/properties/1/edit page add option to "Hide agent information from public"
+
+Add new Admin Menu "Themes", Allow admin to change frontend theme
+
+Add a Button "Create New Theme" with name and slug automatically created, it should copy the files from default theme to the new {theme-name-slug} folder disable delete of default theme and new theme name should not be default
+
+Add a edit Button to each theme and clicking on that go to edit theme page, add a dropdown and list all pages and add a the edit and delete and create new Button
+
+
+in admin/themes/{theme}/edit page swao the position of "Create New File" and "Editor" and make the editor full width
+
+
+in admin/themes/{theme}/edit page fit "Edit Existing File" and "Create New File" in one horizontal row
+
+
+TODO AFTER REPO UPDATE
+	Add the following Admin Menus "CMS Pages", "Blog Posts", "Blocks", "Menu" , copy these plugins from copy it from /var/www/html/freelancer/repos/soho-cms/soho-cms/ folder
+
+
+
+
+
+
+
+
+
+==========================================
+sudo chown www-data:www-data themes/ -R
+sudo chmod 0777 themes/ -R
+==========================================

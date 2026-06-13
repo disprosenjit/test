@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminBrandController;
 use App\Http\Controllers\Admin\AdminSettingsController;
 use App\Http\Controllers\Admin\AdminPageController;
+use App\Http\Controllers\Admin\AdminCustomerController;
 use App\Http\Controllers\Admin\AdminChatbotFaqController;
 use App\Http\Controllers\Webhook\PayPalIpnController;
 use App\Http\Controllers\Admin\AdminPayPalIpnController;
@@ -110,11 +111,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Orders
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/export', [AdminOrderController::class, 'export'])->name('orders.export');
     Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
     Route::put('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
     Route::post('/orders/{order}/shipment', [AdminOrderController::class, 'createShipment'])->name('orders.shipment');
     Route::post('/orders/{order}/cancel', [AdminOrderController::class, 'cancel'])->name('orders.cancel');
-    Route::get('/orders/export', [AdminOrderController::class, 'export'])->name('orders.export');
 
     // Payments
     Route::get('/payments', [AdminPaymentController::class, 'index'])->name('payments.index');
@@ -190,6 +191,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Pages
     Route::resource('pages', AdminPageController::class);
+
+    // Customers
+    Route::resource('customers', AdminCustomerController::class);
 
     // FAQs
     Route::resource('faqs', AdminChatbotFaqController::class, ['parameters' => ['faq' => 'faq']]);

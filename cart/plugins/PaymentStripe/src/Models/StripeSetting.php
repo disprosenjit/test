@@ -13,12 +13,24 @@ class StripeSetting extends Model
         'secret_key',
         'webhook_secret',
         'environment',
+        'is_active',
+        'business_name',
+        'business_email',
         'currency',
-        'enabled',
+        'minimum_amount',
+        'maximum_amount',
+        'webhook_events',
+        'notes',
+        'configured_at',
+        'configured_by',
     ];
 
     protected $casts = [
-        'enabled' => 'boolean',
+        'is_active' => 'boolean',
+        'webhook_events' => 'array',
+        'minimum_amount' => 'decimal:2',
+        'maximum_amount' => 'decimal:2',
+        'configured_at' => 'datetime',
     ];
 
     /**
@@ -35,7 +47,7 @@ class StripeSetting extends Model
      */
     public static function getActive(): ?self
     {
-        return self::where('enabled', true)->first() ?? self::first();
+        return self::where('is_active', true)->first() ?? self::first();
     }
 
     /**

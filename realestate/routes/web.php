@@ -68,7 +68,17 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('investments', [InvestmentInquiryController::class, 'index'])->name('investments.index');
     Route::get('investments/{inquiry}', [InvestmentInquiryController::class, 'show'])->name('investments.show');
     Route::patch('investments/{inquiry}/status', [InvestmentInquiryController::class, 'updateStatus'])->name('investments.updateStatus');
-    Route::delete('investments/{inquiry}', [InvestmentInquiryController::class, 'destroy'])->name('investments.destroy');
+    // Themes Management
+    Route::get('themes', [\App\Http\Controllers\Admin\ThemeController::class, 'index'])->name('themes.index');
+    Route::post('themes', [\App\Http\Controllers\Admin\ThemeController::class, 'store'])->name('themes.store');
+    Route::post('themes/activate', [\App\Http\Controllers\Admin\ThemeController::class, 'activate'])->name('themes.activate');
+    Route::delete('themes/{theme}', [\App\Http\Controllers\Admin\ThemeController::class, 'destroy'])->name('themes.destroy');
+    
+    // Theme Editor
+    Route::get('themes/{theme}/edit', [\App\Http\Controllers\Admin\ThemeController::class, 'edit'])->name('themes.edit');
+    Route::post('themes/{theme}/files', [\App\Http\Controllers\Admin\ThemeController::class, 'storeFile'])->name('themes.files.store');
+    Route::put('themes/{theme}/files', [\App\Http\Controllers\Admin\ThemeController::class, 'updateFile'])->name('themes.files.update');
+    Route::delete('themes/{theme}/files', [\App\Http\Controllers\Admin\ThemeController::class, 'destroyFile'])->name('themes.files.destroy');
 });
 
 // Profile Routes

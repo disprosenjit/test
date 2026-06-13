@@ -30,15 +30,39 @@
                 <p class="text-gray-500 text-sm mt-1">Current slug: <code class="bg-gray-100 px-2 py-1 rounded">{{ $page->slug }}</code></p>
             </div>
 
-            <!-- Meta Description -->
-            <div class="mb-6">
-                <label for="meta_description" class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
-                <textarea id="meta_description" name="meta_description" rows="2" 
-                    placeholder="Brief description for SEO (optional)"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('meta_description', $page->meta_description) }}</textarea>
-                @error('meta_description')
-                    <p class="text-red-500 text-sm mt-1"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
-                @enderror
+            <!-- SEO Settings -->
+            <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="text-sm font-semibold text-gray-700 mb-4">SEO Settings</h3>
+                
+                <div class="mb-4">
+                    <label for="meta_title" class="block text-xs font-semibold text-gray-600 mb-1">Meta Title</label>
+                    <input type="text" id="meta_title" name="meta_title" value="{{ old('meta_title', $page->meta_title) }}" 
+                        placeholder="Default is the page title"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('meta_title') border-red-500 @enderror">
+                    @error('meta_title')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="meta_description" class="block text-xs font-semibold text-gray-600 mb-1">Meta Description</label>
+                    <textarea id="meta_description" name="meta_description" rows="2" 
+                        placeholder="Brief description for search engines"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('meta_description') border-red-500 @enderror">{{ old('meta_description', $page->meta_description) }}</textarea>
+                    @error('meta_description')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="meta_keywords" class="block text-xs font-semibold text-gray-600 mb-1">Meta Keywords</label>
+                    <input type="text" id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords', $page->meta_keywords) }}" 
+                        placeholder="Comma-separated keywords"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('meta_keywords') border-red-500 @enderror">
+                    @error('meta_keywords')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
 
             <!-- Content -->

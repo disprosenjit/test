@@ -49,6 +49,9 @@ class AdminProductController extends Controller
             'images' => 'nullable|string',
             'specifications' => 'nullable|string',
             'is_active' => 'nullable|boolean',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
 
         // Parse images from textarea (one per line)
@@ -103,6 +106,9 @@ class AdminProductController extends Controller
             'images' => 'nullable|string',
             'specifications' => 'nullable|string',
             'is_active' => 'nullable|boolean',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
 
         // Parse images from textarea (one per line)

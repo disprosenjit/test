@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('title', $product->name . ' - Ship Spare Parts Store')
+@section('title', ($product->meta_title ?: $product->name) . ' - Ship Spare Parts Store')
+@section('meta_description', $product->meta_description ?: Str::limit(strip_tags($product->description), 155))
+@if($product->meta_keywords)
+@section('meta_keywords', $product->meta_keywords)
+@endif
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

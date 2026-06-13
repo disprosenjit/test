@@ -55,7 +55,7 @@
         <!-- Settings Form -->
         <div class="bg-white rounded-lg shadow p-6">
             <h2 class="text-lg font-bold mb-4">Settings</h2>
-            <form method="PUT" action="/admin/payment-methods/{{ $paymentMethod->id }}" class="space-y-4">
+            <form method="POST" action="/admin/payment-methods/{{ $paymentMethod->id }}" class="space-y-4">
                 @csrf
                 @method('PUT')
 
@@ -83,6 +83,78 @@
                                value="{{ $paymentMethod->maximum_amount }}" placeholder="Optional">
                     </div>
                 </div>
+
+                @if($paymentMethod->key === 'paypal')
+                <div class="pt-4 border-t space-y-4">
+                    <h3 class="text-md font-bold text-gray-900">PayPal API Credentials</h3>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Client ID *</label>
+                        <input type="text" name="client_id" required class="w-full px-3 py-2 border rounded-lg"
+                               value="{{ old('client_id', $paypalSettings->client_id ?? '') }}">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Client Secret *</label>
+                        <input type="password" name="client_secret" required class="w-full px-3 py-2 border rounded-lg"
+                               value="{{ old('client_secret', $paypalSettings->client_secret ?? '') }}">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Environment *</label>
+                            <select name="environment" required class="w-full px-3 py-2 border rounded-lg">
+                                <option value="sandbox" {{ old('environment', $paypalSettings->environment ?? '') === 'sandbox' ? 'selected' : '' }}>Sandbox</option>
+                                <option value="live" {{ old('environment', $paypalSettings->environment ?? '') === 'live' ? 'selected' : '' }}>Live</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Currency *</label>
+                            <input type="text" name="currency" required class="w-full px-3 py-2 border rounded-lg"
+                                   value="{{ old('currency', $paypalSettings->currency ?? 'USD') }}" placeholder="USD">
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                @if($paymentMethod->key === 'stripe')
+                <div class="pt-4 border-t space-y-4">
+                    <h3 class="text-md font-bold text-gray-900">Stripe API Credentials</h3>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Publishable Key *</label>
+                        <input type="text" name="publishable_key" required class="w-full px-3 py-2 border rounded-lg"
+                               value="{{ old('publishable_key', isset($stripeSettings) ? $stripeSettings->getDecryptedPublishableKey() : '') }}">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Secret Key *</label>
+                        <input type="password" name="secret_key" required class="w-full px-3 py-2 border rounded-lg"
+                               value="{{ old('secret_key', isset($stripeSettings) ? $stripeSettings->getDecryptedSecretKey() : '') }}">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Webhook Secret</label>
+                        <input type="password" name="webhook_secret" class="w-full px-3 py-2 border rounded-lg"
+                               value="{{ old('webhook_secret', isset($stripeSettings) ? $stripeSettings->getWebhookSecret() : '') }}">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Environment *</label>
+                            <select name="environment" required class="w-full px-3 py-2 border rounded-lg">
+                                <option value="test" {{ old('environment', $stripeSettings->environment ?? '') === 'test' ? 'selected' : '' }}>Test</option>
+                                <option value="live" {{ old('environment', $stripeSettings->environment ?? '') === 'live' ? 'selected' : '' }}>Live</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Currency *</label>
+                            <input type="text" name="currency" required class="w-full px-3 py-2 border rounded-lg"
+                                   value="{{ old('currency', $stripeSettings->currency ?? 'USD') }}" placeholder="USD">
+                        </div>
+                    </div>
+                </div>
+                @endif
 
                 <div class="pt-3 border-t">
                     <button type="submit" class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">

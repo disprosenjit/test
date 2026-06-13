@@ -147,13 +147,18 @@ class AdminOrderController extends Controller
         $filename = 'orders_' . date('Y-m-d') . '.csv';
         $handle = fopen('php://memory', 'w');
 
-        fputcsv($handle, ['Order ID', 'Customer', 'Email', 'Total', 'Status', 'Date']);
+        fputcsv($handle, ['Order ID', 'Customer', 'Email', 'Items', 'Total', 'Status', 'Date']);
 
         foreach ($orders as $order) {
+            $itemsSummary = $order->items->map(function ($item) {
+                return "{$item->product_name} (SKU: {$item->product_sku}) x {$item->quantity}";
+            })->implode(', ');
+
             fputcsv($handle, [
                 $order->id,
                 $order->user->name,
                 $order->user->email,
+                $itemsSummary,
                 $order->total,
                 $order->status,
                 $order->created_at->format('Y-m-d')
