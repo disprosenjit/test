@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="WEBSOLAI provides AI solutions, LLM integration, RAG systems, Agentic AI, FastAPI, Django, Laravel, web development, mobile app development and enterprise software solutions.">
+    <meta name="keywords"
+        content="AI, LLM, RAG, Agentic AI, FastAPI, Django, Laravel, Web Development, Mobile Apps, Enterprise Software, WEBSOLAI">
+    <meta name="author" content="WEBSOLAI">
+    <link rel="icon" type="image/jpeg" href="images/websolai.jpeg">
+    <title>WEBSOLAI | AI, Web & Mobile Development Company</title>
+
+    <!-- Google Font: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Devicon for Technology Logos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Global Background Particle Canvas -->
+    <canvas id="bg-particles"></canvas>
+
+    <!-- Cursor Glow Overlay for mouse interaction -->
+    <div class="cursor-glow"></div>
+
+    <!-- Sticky Transparent Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="main-nav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#home">
+                <!-- Premium Custom SVG Neural Logo -->
+                <svg class="logo-svg me-2" width="40" height="40" viewBox="0 0 100 100" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" stroke="#14D8FF" stroke-width="4"
+                        fill="none" stroke-linejoin="round" />
+                    <polygon points="50,20 80,35 80,65 50,80 20,65 20,35" stroke="#0072FF" stroke-width="3"
+                        fill="rgba(20, 216, 255, 0.1)" stroke-linejoin="round" />
+                    <circle cx="50" cy="50" r="8" fill="#14D8FF" />
+                    <line x1="50" y1="20" x2="50" y2="42" stroke="#14D8FF" stroke-width="2" />
+                    <line x1="20" y1="35" x2="42" y2="46" stroke="#14D8FF" stroke-width="2" />
+                    <line x1="80" y1="35" x2="58" y2="46" stroke="#14D8FF" stroke-width="2" />
+                    <line x1="20" y1="65" x2="42" y2="54" stroke="#14D8FF" stroke-width="2" />
+                    <line x1="80" y1="65" x2="58" y2="54" stroke="#14D8FF" stroke-width="2" />
+                    <line x1="50" y1="80" x2="50" y2="58" stroke="#14D8FF" stroke-width="2" />
+                </svg>
+                <span class="logo-text">WEBSOLAI</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#technologies">Technologies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#why-us">Why Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="#contact" class="btn btn-gradient-cyan btn-glow">Get Free Consultation</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full-screen Hero Section -->
+    <header id="home" class="hero-section d-flex align-items-center position-relative overflow-hidden">
+        <!-- Hero background neural network interactive canvas -->
+        <canvas id="hero-neural-canvas" class="position-absolute top-0 start-0 w-100 h-100"></canvas>
+
+        <div class="container position-relative z-3">
+            <div class="row align-items-center min-vh-100 pt-5">
+                <!-- Left Side Content -->
+                <div class="col-lg-6 hero-text-col text-start py-5">
+                    <div class="badge-container mb-3 fade-in-up">
+                        <span class="badge bg-secondary-glow"><span class="badge-pulse"></span>Enterprise AI & Software
+                            Engineering</span>
+                    </div>
+                    <h1 class="hero-title mb-4 fade-in-up">
+                        Build AI-Powered Software That <br>
+                        <span id="typed-text" class="text-accent"></span><span class="typed-cursor">|</span>
+                    </h1>
+                    <p class="hero-subtitle mb-5 fade-in-up">
+                        We design intelligent AI solutions, scalable web platforms, enterprise APIs, mobile
+                        applications, and custom software that transform ideas into successful products.
+                    </p>
+                    <div class="hero-actions d-flex flex-wrap gap-3 fade-in-up">
+                        <a href="#contact" class="btn btn-gradient-cyan btn-glow btn-lg px-4 py-3">Start Your
+                            Project</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg px-4 py-3 btn-hover-glow">Book
+                            Consultation</a>
+                    </div>
+                </div>
+
+                <!-- Right Side Banner Image -->
+                <div class="col-lg-6 hero-image-col text-center py-5">
+                    <div class="hero-image-wrapper fade-in-up">
+                        <!-- Floating image element with soft glow border -->
+                        <div class="banner-glow-container">
+                            <img src="images/websolai_banner.png" alt="WEBSOLAI AI Software Development"
+                                class="img-fluid floating-hero-img" id="hero-banner">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section Transition Wave/Gradient -->
+        <div class="hero-bottom-fade"></div>
+    </header>
+
+    <!-- Client Trust Bar -->
+    <section class="trust-bar py-4 position-relative">
+        <div class="container">
+            <div class="row justify-content-center align-items-center text-center g-4">
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="trust-item d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-microchip me-2 text-accent"></i>
+                        <span>AI Solutions</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="trust-item d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-network-wired me-2 text-accent"></i>
+                        <span>Enterprise APIs</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="trust-item d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-cloud me-2 text-accent"></i>
+                        <span>Cloud Ready</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="trust-item d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-shield-halved me-2 text-accent"></i>
+                        <span>Secure Architecture</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="trust-item d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-bolt me-2 text-accent"></i>
+                        <span>Fast Delivery</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="trust-item d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-mobile-screen-button me-2 text-accent"></i>
+                        <span>Responsive Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section py-6 position-relative">
+        <div class="container">
+            <div class="section-header text-center mb-5 pb-3">
+                <h2 class="section-title fade-up">What We Build</h2>
+                <div class="title-bar mx-auto fade-up"></div>
+                <p class="section-subtitle mt-3 fade-up text-secondary-custom">
+                    We deliver production-ready, highly optimized solutions using bleeding-edge technologies.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- 1. AI & LLM Development -->
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card service-card fade-up">
+                        <div class="service-icon mb-4">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h3 class="service-title">AI & LLM Development</h3>
+                        <ul class="service-list list-unstyled mt-3">
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>GPT Integration</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Claude Integration</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Gemini Integration</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Llama Integration</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Open Source LLMs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. Retrieval Augmented Generation -->
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card service-card fade-up">
+                        <div class="service-icon mb-4">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <h3 class="service-title">RAG Systems</h3>
+                        <ul class="service-list list-unstyled mt-3">
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Vector Databases</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>LangChain</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>LangGraph</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Pinecone & FAISS</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>ChromaDB</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. Agentic AI -->
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card service-card fade-up">
+                        <div class="service-icon mb-4">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h3 class="service-title">Agentic AI</h3>
+                        <ul class="service-list list-unstyled mt-3">
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>AI Agents</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Multi-Agent Systems</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Workflow Automation</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>AI Assistants</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>MCP & Tool Calling</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 4. Custom Web Development -->
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card service-card fade-up">
+                        <div class="service-icon mb-4">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3 class="service-title">Custom Web Dev</h3>
+                        <ul class="service-list list-unstyled mt-3">
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Enterprise Websites</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>SaaS Platforms</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>CRM & ERP Systems</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Admin Panels</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Interactive Dashboards</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 5. Backend Development -->
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card service-card fade-up">
+                        <div class="service-icon mb-4">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h3 class="service-title">Backend Development</h3>
+                        <ul class="service-list list-unstyled mt-3">
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>FastAPI & Django</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Flask & Laravel</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>RESTful APIs</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>GraphQL Services</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Microservices Architecture</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 6. Mobile App Development -->
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card service-card fade-up">
+                        <div class="service-icon mb-4">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <h3 class="service-title">Mobile App Dev</h3>
+                        <ul class="service-list list-unstyled mt-3">
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Android & iOS Apps</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Flutter Development</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>React Native</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Hybrid Applications</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>App Store Deployment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 7. Database Engineering -->
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card service-card fade-up">
+                        <div class="service-icon mb-4">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h3 class="service-title">Database Engineering</h3>
+                        <ul class="service-list list-unstyled mt-3">
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>PostgreSQL & MySQL</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>MongoDB & Redis</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Elasticsearch</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Performance Optimization</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Data Replication & Sharding
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 8. Cloud & DevOps -->
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card service-card fade-up">
+                        <div class="service-icon mb-4">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <h3 class="service-title">Cloud & DevOps</h3>
+                        <ul class="service-list list-unstyled mt-3">
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Docker & Kubernetes</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>AWS, Azure & GCP</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>CI/CD Pipelines</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Infrastructure as Code</li>
+                            <li><i class="fa-solid fa-circle-check text-accent me-2"></i>Zero-downtime Deployment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack Section -->
+    <section id="technologies" class="tech-section py-6 position-relative">
+        <div class="container">
+            <div class="section-header text-center mb-5 pb-3">
+                <h2 class="section-title fade-up">Our Tech Stack</h2>
+                <div class="title-bar mx-auto fade-up"></div>
+                <p class="section-subtitle mt-3 fade-up text-secondary-custom">
+                    We select the optimal modern stack for reliability, speed, and future scalability.
+                </p>
+            </div>
+
+            <!-- Categories Tabs/Grids -->
+            <div class="tech-grid-wrapper">
+
+                <!-- Tab Categories Navigation -->
+                <ul class="nav nav-pills justify-content-center mb-5 fade-up gap-2" id="techTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="ai-tab" data-bs-toggle="pill" data-bs-target="#tech-ai"
+                            type="button" role="tab">AI & LLM</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="languages-tab" data-bs-toggle="pill"
+                            data-bs-target="#tech-languages" type="button" role="tab">Languages</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="backend-tab" data-bs-toggle="pill" data-bs-target="#tech-backend"
+                            type="button" role="tab">Backend</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="frontend-tab" data-bs-toggle="pill" data-bs-target="#tech-frontend"
+                            type="button" role="tab">Frontend</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="databases-tab" data-bs-toggle="pill"
+                            data-bs-target="#tech-databases" type="button" role="tab">Databases</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="mobile-tab" data-bs-toggle="pill" data-bs-target="#tech-mobile"
+                            type="button" role="tab">Mobile</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="cloud-tab" data-bs-toggle="pill" data-bs-target="#tech-cloud"
+                            type="button" role="tab">Cloud & DevOps</button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content fade-up" id="techTabsContent">
+
+                    <!-- AI Category -->
+                    <div class="tab-pane fade show active" id="tech-ai" role="tabpanel">
+                        <div
+                            class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 justify-content-center">
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #74AA9C;"><i
+                                        class="fa-solid fa-microchip tech-icon"></i><span
+                                        class="tech-name">OpenAI</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #D97753;"><i
+                                        class="fa-solid fa-fire tech-icon"></i><span class="tech-name">Claude</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #4285F4;"><i
+                                        class="fa-solid fa-brain tech-icon"></i><span class="tech-name">Gemini</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #00A67E;"><i
+                                        class="fa-solid fa-infinity tech-icon"></i><span class="tech-name">Llama</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #E24A35;"><i
+                                        class="fa-solid fa-link tech-icon"></i><span class="tech-name">LangChain</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #9B51E0;"><i
+                                        class="fa-solid fa-diagram-project tech-icon"></i><span
+                                        class="tech-name">LangGraph</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #10B981;"><i
+                                        class="fa-solid fa-users-gear tech-icon"></i><span
+                                        class="tech-name">CrewAI</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #3B82F6;"><i
+                                        class="fa-solid fa-user-robot tech-icon"></i><span
+                                        class="tech-name">AutoGen</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #8B5CF6;"><i
+                                        class="fa-solid fa-network-wired tech-icon"></i><span
+                                        class="tech-name">MCP</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Languages Category -->
+                    <div class="tab-pane fade" id="tech-languages" role="tabpanel">
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4 justify-content-center">
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #3776AB;"><i
+                                        class="devicon-python-plain tech-icon"></i><span class="tech-name">Python</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #777BB4;"><i
+                                        class="devicon-php-plain tech-icon"></i><span class="tech-name">PHP</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #F7DF1E;"><i
+                                        class="devicon-javascript-plain tech-icon"></i><span
+                                        class="tech-name">JavaScript</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #3178C6;"><i
+                                        class="devicon-typescript-plain tech-icon"></i><span
+                                        class="tech-name">TypeScript</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Backend Category -->
+                    <div class="tab-pane fade" id="tech-backend" role="tabpanel">
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4 justify-content-center">
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #059669;"><i
+                                        class="fa-solid fa-bolt-lightning tech-icon"></i><span
+                                        class="tech-name">FastAPI</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #092E20;"><i
+                                        class="devicon-django-plain tech-icon"></i><span class="tech-name">Django</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #FFFFFF;"><i
+                                        class="devicon-flask-original tech-icon"></i><span
+                                        class="tech-name">Flask</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #FF2D20;"><i
+                                        class="devicon-laravel-original tech-icon"></i><span
+                                        class="tech-name">Laravel</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frontend Category -->
+                    <div class="tab-pane fade" id="tech-frontend" role="tabpanel">
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 g-4 justify-content-center">
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #E34F26;"><i
+                                        class="devicon-html5-plain tech-icon"></i><span class="tech-name">HTML5</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #1572B6;"><i
+                                        class="devicon-css3-plain tech-icon"></i><span class="tech-name">CSS3</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #F7DF1E;"><i
+                                        class="devicon-javascript-plain tech-icon"></i><span
+                                        class="tech-name">JavaScript</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Databases Category -->
+                    <div class="tab-pane fade" id="tech-databases" role="tabpanel">
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4 justify-content-center">
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #4479A1;"><i
+                                        class="devicon-mysql-plain tech-icon"></i><span class="tech-name">MySQL</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #336791;"><i
+                                        class="devicon-postgresql-plain tech-icon"></i><span
+                                        class="tech-name">PostgreSQL</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #47A248;"><i
+                                        class="devicon-mongodb-plain tech-icon"></i><span
+                                        class="tech-name">MongoDB</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #DC382D;"><i
+                                        class="devicon-redis-plain tech-icon"></i><span class="tech-name">Redis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Category -->
+                    <div class="tab-pane fade" id="tech-mobile" role="tabpanel">
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4 justify-content-center">
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #3DDC84;"><i
+                                        class="devicon-android-plain tech-icon"></i><span class="tech-name">Android
+                                        (Native)</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #FFFFFF;"><i
+                                        class="devicon-apple-original tech-icon"></i><span class="tech-name">iOS
+                                        (Native)</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #02569B;"><i
+                                        class="devicon-flutter-plain tech-icon"></i><span class="tech-name">Flutter
+                                        (Hybrid)</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #61DAFB;"><i
+                                        class="devicon-react-original tech-icon"></i><span class="tech-name">React
+                                        Native (Hybrid)</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Category -->
+                    <div class="tab-pane fade" id="tech-cloud" role="tabpanel">
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-4 justify-content-center">
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #2496ED;"><i
+                                        class="devicon-docker-plain tech-icon"></i><span class="tech-name">Docker</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #326CE5;"><i
+                                        class="devicon-kubernetes-plain tech-icon"></i><span
+                                        class="tech-name">Kubernetes</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #FF9900;"><i
+                                        class="devicon-amazonwebservices-plain-wordmark tech-icon"></i><span
+                                        class="tech-name">AWS</span></div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #0089D6;"><i
+                                        class="devicon-azure-plain tech-icon"></i><span class="tech-name">Azure</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="tech-card" style="--brand-color: #4285F4;"><i
+                                        class="devicon-googlecloud-plain tech-icon"></i><span
+                                        class="tech-name">GCP</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-us" class="why-us-section py-6 position-relative">
+        <div class="container">
+            <div class="section-header text-center mb-5 pb-3">
+                <h2 class="section-title fade-up">Why Choose WEBSOLAI</h2>
+                <div class="title-bar mx-auto fade-up"></div>
+                <p class="section-subtitle mt-3 fade-up text-secondary-custom">
+                    We deliver unmatched quality with a software development model engineered for the future.
+                </p>
+            </div>
+
+            <!-- Premium alternating cards grid -->
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card why-card fade-up">
+                        <div class="why-number text-accent">01</div>
+                        <h4 class="why-title mt-3">AI-first Development</h4>
+                        <p class="why-text text-secondary-custom mt-2">Integrating advanced models and workflow logic
+                            directly into the DNA of your software.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card why-card fade-up">
+                        <div class="why-number text-accent">02</div>
+                        <h4 class="why-title mt-3">Scalable Architecture</h4>
+                        <p class="why-text text-secondary-custom mt-2">Engineered to support millions of requests
+                            smoothly using robust microservices and caching.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card why-card fade-up">
+                        <div class="why-number text-accent">03</div>
+                        <h4 class="why-title mt-3">Modern UI/UX</h4>
+                        <p class="why-text text-secondary-custom mt-2">Sleek, fluid, and intuitive design interfaces
+                            crafted to maximize retention and conversions.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card why-card fade-up">
+                        <div class="why-number text-accent">04</div>
+                        <h4 class="why-title mt-3">Secure APIs</h4>
+                        <p class="why-text text-secondary-custom mt-2">Strict access controls, OAuth, JWT, and encrypted
+                            communication channels protect your data.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card why-card fade-up">
+                        <div class="why-number text-accent">05</div>
+                        <h4 class="why-title mt-3">Cloud Ready</h4>
+                        <p class="why-text text-secondary-custom mt-2">Built natively inside containers for quick
+                            deployment and autoscaling across any cloud service.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card why-card fade-up">
+                        <div class="why-number text-accent">06</div>
+                        <h4 class="why-title mt-3">Agile Delivery</h4>
+                        <p class="why-text text-secondary-custom mt-2">Sprints, iterative feedback, demo environments,
+                            and rapid deployments ensure you stay aligned.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card why-card fade-up">
+                        <div class="why-number text-accent">07</div>
+                        <h4 class="why-title mt-3">Enterprise Quality</h4>
+                        <p class="why-text text-secondary-custom mt-2">Automated CI/CD unit testing, lint checks, and
+                            rigorous quality assurance on every build.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="glass-card why-card fade-up">
+                        <div class="why-number text-accent">08</div>
+                        <h4 class="why-title mt-3">Long-Term Support</h4>
+                        <p class="why-text text-secondary-custom mt-2">Post-launch monitoring, security patches, scaling
+                            reviews, and continuous maintenance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Process Section -->
+    <section id="process" class="process-section py-6 position-relative">
+        <div class="container">
+            <div class="section-header text-center mb-5 pb-3">
+                <h2 class="section-title fade-up">Our Development Process</h2>
+                <div class="title-bar mx-auto fade-up"></div>
+                <p class="section-subtitle mt-3 fade-up text-secondary-custom">
+                    How we transform complex ideas into robust, enterprise-grade realities.
+                </p>
+            </div>
+
+            <!-- Horizontal / Scrollable Timeline -->
+            <div class="timeline-container fade-up">
+                <div class="timeline-line">
+                    <div class="timeline-progress"></div>
+                </div>
+                <div class="timeline-steps d-flex justify-content-between flex-wrap flex-lg-nowrap">
+
+                    <div class="timeline-step" data-step="1">
+                        <div class="step-circle">
+                            <span>1</span>
+                        </div>
+                        <h5 class="step-title mt-3">Discovery</h5>
+                        <p class="step-desc text-secondary-custom">Consultation, project mapping, and AI viability
+                            assessment.</p>
+                    </div>
+
+                    <div class="timeline-step" data-step="2">
+                        <div class="step-circle">
+                            <span>2</span>
+                        </div>
+                        <h5 class="step-title mt-3">Architecture</h5>
+                        <p class="step-desc text-secondary-custom">Database designs, system topologies, and integrations
+                            defined.</p>
+                    </div>
+
+                    <div class="timeline-step" data-step="3">
+                        <div class="step-circle">
+                            <span>3</span>
+                        </div>
+                        <h5 class="step-title mt-3">Design</h5>
+                        <p class="step-desc text-secondary-custom">High fidelity UI mockups and user experience flows.
+                        </p>
+                    </div>
+
+                    <div class="timeline-step" data-step="4">
+                        <div class="step-circle">
+                            <span>4</span>
+                        </div>
+                        <h5 class="step-title mt-3">Development</h5>
+                        <p class="step-desc text-secondary-custom">Clean, modular coding, unit tests, and LLM
+                            fine-tuning.</p>
+                    </div>
+
+                    <div class="timeline-step" data-step="5">
+                        <div class="step-circle">
+                            <span>5</span>
+                        </div>
+                        <h5 class="step-title mt-3">Testing</h5>
+                        <p class="step-desc text-secondary-custom">System, load, security, and edge-case testing cycles.
+                        </p>
+                    </div>
+
+                    <div class="timeline-step" data-step="6">
+                        <div class="step-circle">
+                            <span>6</span>
+                        </div>
+                        <h5 class="step-title mt-3">Deployment</h5>
+                        <p class="step-desc text-secondary-custom">Container staging, domain config, and live product
+                            release.</p>
+                    </div>
+
+                    <div class="timeline-step" data-step="7">
+                        <div class="step-circle">
+                            <span>7</span>
+                        </div>
+                        <h5 class="step-title mt-3">Maintenance</h5>
+                        <p class="step-desc text-secondary-custom">Continuous telemetry, uptime reviews, and version
+                            updates.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Industries Section -->
+    <section id="industries" class="industries-section py-6 position-relative">
+        <div class="container">
+            <div class="section-header text-center mb-5 pb-3">
+                <h2 class="section-title fade-up">Industries We Empower</h2>
+                <div class="title-bar mx-auto fade-up"></div>
+                <p class="section-subtitle mt-3 fade-up text-secondary-custom">
+                    Domain expertise that allows us to build tailor-made vertical solutions.
+                </p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="glass-card industry-card fade-up">
+                        <div class="industry-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <h5 class="industry-title mt-3">Healthcare</h5>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="glass-card industry-card fade-up">
+                        <div class="industry-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <h5 class="industry-title mt-3">Finance</h5>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="glass-card industry-card fade-up">
+                        <div class="industry-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h5 class="industry-title mt-3">Education</h5>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="glass-card industry-card fade-up">
+                        <div class="industry-icon"><i class="fa-solid fa-store"></i></div>
+                        <h5 class="industry-title mt-3">Retail</h5>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="glass-card industry-card fade-up">
+                        <div class="industry-icon"><i class="fa-solid fa-industry"></i></div>
+                        <h5 class="industry-title mt-3">Manufacturing</h5>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="glass-card industry-card fade-up">
+                        <div class="industry-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                        <h5 class="industry-title mt-3">Logistics</h5>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="glass-card industry-card fade-up">
+                        <div class="industry-icon"><i class="fa-solid fa-building-user"></i></div>
+                        <h5 class="industry-title mt-3">Real Estate</h5>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="glass-card industry-card fade-up">
+                        <div class="industry-icon"><i class="fa-solid fa-rocket"></i></div>
+                        <h5 class="industry-title mt-3">AI Startups</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta-section py-6 position-relative overflow-hidden">
+        <div class="container text-center position-relative z-3">
+            <div class="cta-box glass-card p-5 p-lg-6 mx-auto fade-up">
+                <div class="cta-glow-bg"></div>
+                <h2 class="cta-title mb-4">Let's Build Your Next AI Product</h2>
+                <p class="cta-text text-secondary-custom mx-auto mb-5">
+                    Partner with an expert engineering team that understands how to scale intelligent AI pipelines,
+                    build lightning-fast web services, and ship mobile apps.
+                </p>
+                <a href="#contact" class="btn btn-gradient-cyan btn-glow btn-lg px-5 py-3">Schedule Free
+                    Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section py-6 position-relative">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <!-- Left Details -->
+                <div class="col-lg-5 fade-up">
+                    <h2 class="contact-heading mb-4">Let's Talk</h2>
+                    <p class="contact-sub mb-4 text-secondary-custom">
+                        Have an idea? Need AI automation? Need a web platform? Need mobile apps? We would love to help.
+                    </p>
+
+                    <div class="contact-methods mt-5">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="contact-icon-box me-3">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 text-secondary-custom text-uppercase small tracking-wider">Email Us</h6>
+                                <span class="contact-info-link text-white">contact@websolai.com</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="contact-icon-box me-3">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 text-secondary-custom text-uppercase small tracking-wider">Call Us</h6>
+                                <span class="contact-info-link text-white">+91 9477374890</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Form -->
+                <div class="col-lg-7 fade-up">
+                    <div class="glass-card contact-form-wrapper p-4 p-md-5">
+                        <h4 class="mb-4">Get Started Today</h4>
+                        <form id="contactForm" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative">
+                                        <label for="name" class="form-label text-secondary-custom small">Name *</label>
+                                        <input type="text" class="form-control" id="name" required
+                                            placeholder="John Doe">
+                                        <div class="invalid-feedback">Please enter your name.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="company"
+                                            class="form-label text-secondary-custom small">Company</label>
+                                        <input type="text" class="form-control" id="company" placeholder="Acme Inc.">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label text-secondary-custom small">Email
+                                            *</label>
+                                        <input type="email" class="form-control" id="email" required
+                                            placeholder="john@example.com">
+                                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone" class="form-label text-secondary-custom small">Phone</label>
+                                        <input type="tel" class="form-control" id="phone"
+                                            placeholder="+1 (555) 123-4567">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="projectType" class="form-label text-secondary-custom small">Project
+                                            Type *</label>
+                                        <select class="form-select" id="projectType" required>
+                                            <option value="" disabled selected>Select service</option>
+                                            <option value="AI & LLM">AI & LLM Integration</option>
+                                            <option value="RAG">RAG Systems</option>
+                                            <option value="Agentic AI">Agentic AI & Automation</option>
+                                            <option value="Web Dev">Custom Web Development</option>
+                                            <option value="Mobile App">Mobile App Development</option>
+                                            <option value="Cloud/DevOps">Cloud & DevOps</option>
+                                            <option value="Full Suite">Full Suite Architecture</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a project type.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="budget" class="form-label text-secondary-custom small">Budget Range
+                                            *</label>
+                                        <select class="form-select" id="budget" required>
+                                            <option value="" disabled selected>Select budget</option>
+                                            <option value="<10k">&lt; $10,000</option>
+                                            <option value="10k-30k">$10,000 - $30,000</option>
+                                            <option value="30k-100k">$30,000 - $100,000</option>
+                                            <option value="100k+">$100,000+</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select your budget range.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="message" class="form-label text-secondary-custom small">Message
+                                            *</label>
+                                        <textarea class="form-control" id="message" rows="4" required
+                                            placeholder="Tell us details about your project, timeline, and goals..."></textarea>
+                                        <div class="invalid-feedback">Please write a short description of your project.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-gradient-cyan btn-glow w-100 py-3">Submit
+                                        Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-5 col-md-6">
+                    <a class="d-flex align-items-center mb-3" href="#home" style="text-decoration: none;">
+                        <svg class="logo-svg me-2" width="35" height="35" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" stroke="#14D8FF" stroke-width="4"
+                                fill="none" stroke-linejoin="round" />
+                            <polygon points="50,20 80,35 80,65 50,80 20,65 20,35" stroke="#0072FF" stroke-width="3"
+                                fill="rgba(20, 216, 255, 0.1)" stroke-linejoin="round" />
+                            <circle cx="50" cy="50" r="8" fill="#14D8FF" />
+                        </svg>
+                        <span class="logo-text text-white" style="font-size: 1.3rem;">WEBSOLAI</span>
+                    </a>
+                    <p class="text-secondary-custom mt-3 pe-md-5 footer-desc">
+                        WEBSOLAI is a premier software company designing intelligent AI applications, custom web
+                        architectures, secure APIs, and responsive mobile platforms for clients worldwide.
+                    </p>
+                    <div class="social-links mt-4 d-flex gap-3">
+                        <a href="#" class="social-icon" aria-label="LinkedIn"><i
+                                class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="mailto:cotact@websolai.com" class="social-icon" aria-label="Email"><i
+                                class="fa-solid fa-envelope"></i></a>
+                        <a href="tel:+91 9477374890" class="social-icon" aria-label="Phone"><i
+                                class="fa-solid fa-phone"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4 footer-title">Services</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#services">AI & LLM Development</a></li>
+                        <li><a href="#services">RAG System Engineering</a></li>
+                        <li><a href="#services">Agentic Automation</a></li>
+                        <li><a href="#services">Custom Web Development</a></li>
+                        <li><a href="#services">Mobile App Development</a></li>
+                        <li><a href="#services">Cloud Infrastructure</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <h5 class="text-white mb-4 footer-title">Quick Links</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#technologies">Technologies</a></li>
+                        <li><a href="#why-us">Why Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <div class="mt-4 pt-2">
+                        <span class="text-secondary-custom d-block small">Enterprise AI Development Company</span>
+                        <span class="text-secondary-custom d-block small">Established 2026. All Rights Reserved.</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="footer-divider my-4">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="copyright mb-0 text-secondary-custom">&copy; 2026 WEBSOLAI. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                    <ul class="list-inline mb-0 footer-sublinks">
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal Popup -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-card border-0">
+                <div class="modal-body text-center p-5">
+                    <div class="success-icon-wrapper mb-4 mx-auto">
+                        <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="success-checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                            <path class="success-checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                        </svg>
+                    </div>
+                    <h3 class="text-white mb-3">Thank You!</h3>
+                    <p class="text-secondary-custom mb-4" id="successModalMessage">Your inquiry has been successfully
+                        sent. An AI advisor will contact you within 2 business hours.</p>
+                    <button type="button" class="btn btn-gradient-cyan px-4 py-2" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap 5 JS Bundle -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
